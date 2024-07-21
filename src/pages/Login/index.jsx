@@ -71,7 +71,12 @@ export default function Login() {
                         />
 
                         {
-                            includes('email', loginData?.error?.messages) && <ErrorMessage message={  fieldError('email')  }/>
+                            (() => {
+                                if(includes('email', loginData?.error?.messages)) {
+                                    return <ErrorMessage message={  fieldError('email') } />
+                                }
+
+                            })() 
                         }
 
                     </Label>
@@ -86,7 +91,11 @@ export default function Login() {
                         />
 
                         {
-                            includes('password', loginData?.error?.messages) && <ErrorMessage message={  fieldError('password')  }/>
+                            (() => {
+                                if(includes('password', loginData?.error?.messages)) {
+                                    return <ErrorMessage message={  fieldError('password')  }/>;
+                                }
+                            })()
                         }
 
                     </Label>
