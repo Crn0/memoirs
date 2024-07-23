@@ -7,20 +7,25 @@ export default function Form({ action, method, children }) {
     const { theme } = useContext(ThemeContext);
 
     return (
-        <div className="form__container">
+       
             <ReactForm
                 action={action}
                 method={method}
                 className={`${theme} form`}
+                style={{ display: 'grid', placeContent: 'center'}}
             >
                 {children}
+                
             </ReactForm>
-        </div>
+        
     );
 }
 
 Form.propTypes = {
     action: PropTypes.string.isRequired,
     method: PropTypes.string.isRequired,
-    children: PropTypes.arrayOf(PropTypes.element).isRequired,
+    children: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.element),
+        PropTypes.element,
+    ]).isRequired,
 };
