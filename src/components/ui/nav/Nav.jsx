@@ -1,26 +1,45 @@
 import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Link from '../link/Link';
 import ThemeContext from '../../../context/themeContext';
-import AuthenticateContext from '../../../context/userContext';
+import UserContext from '../../../context/userContext';
+import Button from '../button/Button';
 
 export default function NavBar() {
     const { theme } = useContext(ThemeContext);
-    const { auth } = useContext(AuthenticateContext);
+    const { user, setUser } = useContext(UserContext);
+    const navigate = useNavigate();
 
+    const handleLogout = async () => {
+        const localStorage = await import('../../../helpers/storage/localStorage');
+
+        localStorage.default.remove('token');
+        setUser(null);
+
+        navigate('/', { replace: true });
+        
+    }
+    
     return (
         <div className={`${theme}`}>
             {(() => {
-                if (auth) {
+                if (user) {
                     return (
                         <>
                             <Link url="profile" className={theme}>
                                 {' '}
                                 Profile{' '}
                             </Link>
-                            <Link url="logout" className={theme}>
-                                {' '}
-                                Logout{' '}
-                            </Link>
+                    
+                            <Button 
+                                type='button'
+                                size='small'
+                                uncontrolled={ false }
+                                onClick={handleLogout}
+                            >
+                                    Logout
+
+                            </Button>
                         </>
                     );
                 }
