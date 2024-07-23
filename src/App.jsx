@@ -5,10 +5,10 @@ import UserContextContext from './context/userContext';
 import Header from './components/ui/header';
 
 function App() {
-    const data = useLoaderData();
-    const [user, setUser] = useState(data);
+    const userData = useLoaderData();
+    const [user, setUser] = useState(userData);
     const [theme, setTheme] = useState('dark');
-
+    
     return (
         <>
             <ThemeContext.Provider value={{ theme, setTheme }}>

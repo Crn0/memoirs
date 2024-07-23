@@ -6,7 +6,7 @@ import Card from "../../components/ui/card/card";
 export default function Posts() {
     const { posts } = useLoaderData()
     const { theme } = useContext(ThemeContext);
-
+    
     return (
         <div className={`${ theme } posts__container`}>
             {
