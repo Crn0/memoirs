@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
-export default function Fieldset({ children }) {
-    return <div>{children}</div>;
+export default function Fieldset({ children, fieldName }) {
+    return <div className={`${fieldName}`}>{children}</div>;
 }
 
 Fieldset.propTypes = {
@@ -9,4 +9,5 @@ Fieldset.propTypes = {
         PropTypes.arrayOf(PropTypes.element),
         PropTypes.element,
     ]).isRequired,
+    fieldName: PropTypes.string.isRequired
 };
