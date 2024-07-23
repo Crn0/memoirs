@@ -1,12 +1,13 @@
 import { json } from 'react-router-dom';
 import { URL } from '../constants/env';
-import localStorage from '../helpers/storage/localStorage';
 import FormError from '../helpers/errors/formError';
 
 const action = async ({ request }) => {
     try {
         const myHeaders = new Headers();
+        
         myHeaders.append("Content-Type", "application/json");
+
         const formData = await request.formData();
         const submission = {
             email: formData.get('email'),
@@ -20,8 +21,8 @@ const action = async ({ request }) => {
             
             throw new FormError(data.message, data.error.message, data.code)
         }
-
-        return json(res);
+        
+        return { user: data.user, token: data.token };
     } catch (error) {
         return {
             error: {
