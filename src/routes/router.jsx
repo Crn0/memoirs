@@ -17,21 +17,21 @@ const Router = () => {
             children: [
                 {
                     index: true,
-                    element: <Posts />,
                     loader: loaders.postsLoader,
+                    element: <Posts />,
                 },
                 {
                     path: 'posts',
-                    element: <Posts />,
                     loader: loaders.postsLoader,
+                    element: <Posts />,
                 },
                 {
                     path: 'sign-up',
+                    action: actions.signUpAction,
                     element: <SignUp />,
                 },
                 {
                     path: 'login',
-                    errorElement: <MainError />,
                     action: actions.loginAction,
                     element: <Login />,
                 },
