@@ -8,7 +8,7 @@ function App() {
     const userData = useLoaderData();
     const [user, setUser] = useState(userData);
     const [theme, setTheme] = useState('dark');
-    
+
     return (
         <>
             <ThemeContext.Provider value={{ theme, setTheme }}>
@@ -18,7 +18,6 @@ function App() {
                     <main className={`${theme}`}>
                         <Outlet />
                     </main>
-                    
                 </UserContextContext.Provider>
             </ThemeContext.Provider>
         </>

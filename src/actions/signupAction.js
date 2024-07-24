@@ -6,7 +6,7 @@ const action = async ({ request }) => {
     try {
         const myHeaders = new Headers();
 
-        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append('Content-Type', 'application/json');
 
         const formData = await request.formData();
         const submission = {
@@ -15,22 +15,24 @@ const action = async ({ request }) => {
             email: formData.get('email'),
             username: formData.get('username'),
             password: formData.get('password'),
-            confirm_password: formData.get('confirm_password')
+            confirm_password: formData.get('confirm_password'),
         };
 
-        const req = await fetch(`${URL}/users`, { method: 'POST', headers: myHeaders, body: JSON.stringify(submission) });
+        const req = await fetch(`${URL}/users`, {
+            method: 'POST',
+            headers: myHeaders,
+            body: JSON.stringify(submission),
+        });
         const data = await req.json();
 
-        if(data.code >= 400) {
-            throw new FormError(data.message, data.error.message, data.code)
+        if (data.code >= 400) {
+            throw new FormError(data.message, data.error.message, data.code);
         }
 
         const { user, token } = data;
 
-
-        return {user, token};
+        return { user, token };
     } catch (error) {
-
         return {
             error: {
                 messages: error.errors,

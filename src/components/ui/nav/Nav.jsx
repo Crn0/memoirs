@@ -11,15 +11,16 @@ export default function NavBar() {
     const navigate = useNavigate();
 
     const handleLogout = async () => {
-        const localStorage = await import('../../../helpers/storage/localStorage');
+        const localStorage = await import(
+            '../../../helpers/storage/localStorage'
+        );
 
         localStorage.default.remove('token');
         setUser(null);
 
         navigate('/', { replace: true });
-        
-    }
-    
+    };
+
     return (
         <div className={`${theme}`}>
             {(() => {
@@ -30,15 +31,14 @@ export default function NavBar() {
                                 {' '}
                                 Profile{' '}
                             </Link>
-                    
-                            <Button 
-                                type='button'
-                                size='small'
-                                uncontrolled={ false }
+
+                            <Button
+                                type="button"
+                                size="small"
+                                uncontrolled={false}
                                 onClick={handleLogout}
                             >
-                                    Logout
-
+                                Logout
                             </Button>
                         </>
                     );

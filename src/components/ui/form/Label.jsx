@@ -15,7 +15,7 @@ export default function Label({ name, children }) {
 
 Label.propTypes = {
     name: PropTypes.string.isRequired,
-    children:PropTypes.oneOfType([
+    children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.element),
         PropTypes.element,
     ]).isRequired,

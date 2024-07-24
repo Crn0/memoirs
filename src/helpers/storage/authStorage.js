@@ -6,8 +6,8 @@ const AuthStorage = (title) => {
     };
 
     const get = (key) => {
-        if(!has(key)) return null;
-        
+        if (!has(key)) return null;
+
         return storage.get(key);
     };
 

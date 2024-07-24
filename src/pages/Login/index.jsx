@@ -17,35 +17,45 @@ export default function Login() {
     const { theme } = useContext(ThemeContext);
     const { setUser } = useContext(UserContext);
     const loginData = useActionData();
-    
+
     const error = loginData?.error;
     const user = loginData?.user;
     const token = loginData?.token;
-    
-    useAuthData(error, user, token, setUser)
+
+    useAuthData(error, user, token, setUser);
 
     return (
         <div className="form__container">
-                {
-                    error && (() => {
-                        const { messages } = error;
-                        const noFieldErrors = (!fieldNameIncludes(formConstants.EMAIL, messages) && !fieldNameIncludes(formConstants.PWD, messages)) && error;
-                        if(noFieldErrors) {
-                            return (
-                                <div className='error__container'>
-                                    <ErrorMessage message={ messages }/>
-                                </div>
-                            )
-                        } else {
-                            return [formConstants.EMAIL, formConstants.PWD].map((fName) => {
-                                return <FieldErrorMessage key={fName} fieldName={fName} error={error}/>
-                            })
-                        }
-                    })()
-                }
-           
+            {error &&
+                (() => {
+                    const { messages } = error;
+                    const noFieldErrors =
+                        !fieldNameIncludes(formConstants.EMAIL, messages) &&
+                        !fieldNameIncludes(formConstants.PWD, messages) &&
+                        error;
+                    if (noFieldErrors) {
+                        return (
+                            <div className="error__container">
+                                <ErrorMessage message={messages} />
+                            </div>
+                        );
+                    } else {
+                        return [formConstants.EMAIL, formConstants.PWD].map(
+                            (fName) => {
+                                return (
+                                    <FieldErrorMessage
+                                        key={fName}
+                                        fieldName={fName}
+                                        error={error}
+                                    />
+                                );
+                            }
+                        );
+                    }
+                })()}
+
             <Form action="/login" method="POST">
-                <Fieldset fieldName={ formConstants.EMAIL }>
+                <Fieldset fieldName={formConstants.EMAIL}>
                     <Label theme={theme} name="Email">
                         <Input
                             theme={theme}
@@ -56,7 +66,7 @@ export default function Login() {
                     </Label>
                 </Fieldset>
 
-                <Fieldset fieldName='password__field'>
+                <Fieldset fieldName="password__field">
                     <Label theme={theme} name="Password">
                         <Input
                             theme={theme}
@@ -67,12 +77,11 @@ export default function Login() {
                     </Label>
                 </Fieldset>
 
-                <Fieldset fieldName='button__field'>
+                <Fieldset fieldName="button__field">
                     <Button type={'submit'} size={'medium'} uncontrolled={true}>
                         Login
                     </Button>
                 </Fieldset>
-                
             </Form>
         </div>
     );

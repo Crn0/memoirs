@@ -7,17 +7,14 @@ export default function Form({ action, method, children }) {
     const { theme } = useContext(ThemeContext);
 
     return (
-       
-            <ReactForm
-                action={action}
-                method={method}
-                className={`${theme} form`}
-                style={{ display: 'grid', placeContent: 'center'}}
-            >
-                {children}
-                
-            </ReactForm>
-        
+        <ReactForm
+            action={action}
+            method={method}
+            className={`${theme} form`}
+            style={{ display: 'grid', placeContent: 'center' }}
+        >
+            {children}
+        </ReactForm>
     );
 }
 

@@ -9,5 +9,5 @@ Fieldset.propTypes = {
         PropTypes.arrayOf(PropTypes.element),
         PropTypes.element,
     ]).isRequired,
-    fieldName: PropTypes.string.isRequired
+    fieldName: PropTypes.string.isRequired,
 };

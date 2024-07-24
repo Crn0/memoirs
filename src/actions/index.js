@@ -1,5 +1,5 @@
 import loginAction from './loginAction';
-import signUpAction from './signupAction'
+import signUpAction from './signupAction';
 
 export default {
     loginAction,
