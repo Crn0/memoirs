@@ -8,17 +8,15 @@ import Fieldset from '../../components/ui/form/Fieldset';
 import Label from '..//../components/ui/form/Label';
 import Input from '../../components/ui/form/Input';
 import Button from '../../components/ui/button/Button';
+import formConstants from '../../constants/form';
 import ErrorMessage from '../../components/errors/errorMessage';
 import fieldNameIncludes from '../../helpers/form/fieldnameIncludes';
 import FieldErrorMessage from '../../components/ui/form/FieldErrorMessage';
-import localStorage from '../../helpers/storage/localStorage';
 
 export default function Login() {
     const { theme } = useContext(ThemeContext);
     const { setUser } = useContext(UserContext);
     const loginData = useActionData();
-    const location = useLocation();
-    const navigate = useNavigate();
     
     const error = loginData?.error;
     const user = loginData?.user;
@@ -31,7 +29,7 @@ export default function Login() {
                 {
                     error && (() => {
                         const { messages } = error;
-                        const noFieldErrors = (!fieldNameIncludes('email', messages) && !fieldNameIncludes('password', messages)) && error;
+                        const noFieldErrors = (!fieldNameIncludes(formConstants.EMAIL, messages) && !fieldNameIncludes(formConstants.PWD, messages)) && error;
                         if(noFieldErrors) {
                             return (
                                 <div className='error__container'>
@@ -39,7 +37,7 @@ export default function Login() {
                                 </div>
                             )
                         } else {
-                            return ['email', 'password'].map((fName) => {
+                            return [formConstants.EMAIL, formConstants.PWD].map((fName) => {
                                 return <FieldErrorMessage key={fName} fieldName={fName} error={error}/>
                             })
                         }
@@ -47,12 +45,12 @@ export default function Login() {
                 }
            
             <Form action="/login" method="POST">
-                <Fieldset fieldName='email'>
+                <Fieldset fieldName={ formConstants.EMAIL }>
                     <Label theme={theme} name="Email">
                         <Input
                             theme={theme}
-                            type={'email'}
-                            name={'email'}
+                            type={formConstants.EMAIL}
+                            name={formConstants.EMAIL}
                             uncontrolled={true}
                         />
                     </Label>
@@ -62,8 +60,8 @@ export default function Login() {
                     <Label theme={theme} name="Password">
                         <Input
                             theme={theme}
-                            type={'password'}
-                            name={'password'}
+                            type={formConstants.PWD}
+                            name={formConstants.PWD}
                             uncontrolled={true}
                         />
                     </Label>
