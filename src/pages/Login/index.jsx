@@ -1,5 +1,6 @@
 import { useActionData, useNavigate, useLocation } from 'react-router-dom';
 import { useContext, useEffect } from 'react';
+import useAuthData from '../../hooks/useAuthData';
 import ThemeContext from '../../context/themeContext';
 import UserContext from '../../context/userContext';
 import Form from '../../components/ui/form/Form';
@@ -9,7 +10,6 @@ import Input from '../../components/ui/form/Input';
 import Button from '../../components/ui/button/Button';
 import ErrorMessage from '../../components/errors/errorMessage';
 import fieldNameIncludes from '../../helpers/form/fieldnameIncludes';
-import fieldError from '../../helpers/form/fieldMessage';
 import FieldErrorMessage from '../../components/ui/form/FieldErrorMessage';
 import localStorage from '../../helpers/storage/localStorage';
 
@@ -23,25 +23,8 @@ export default function Login() {
     const error = loginData?.error;
     const user = loginData?.user;
     const token = loginData?.token;
-
-
-    useEffect(() => {
-
-        if(localStorage.has('token')) {
-            const { from } = location.state || { from: { pathname: "/" } };
-
-            return navigate(from, { replace: true })
-        }
-
-        if (!error && user && token) {
-
-            localStorage.add('token', token);
-            setUser(user);
-
-            return navigate('/', { replace: true });
-        }
-
-    }, [user, token, setUser, navigate, error, location]);
+    
+    useAuthData(error, user, token, setUser)
 
     return (
         <div className="form__container">
