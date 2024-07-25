@@ -2,18 +2,12 @@ import PropTypes from 'prop-types';
 import { useContext } from 'react';
 import ThemeContext from '../../../context/themeContext';
 
-function Button({ type, size, onClick, children, uncontrolled }) {
+function Button({ type, size, onClick, children, disabled = false}) {
     const { theme } = useContext(ThemeContext);
 
-    if (uncontrolled) {
-        return (
-            <button type={type} className={`${theme} ${size}`}>
-                {children}
-            </button>
-        );
-    }
+    
     return (
-        <button type={type} className={`${theme} ${size}`} onClick={onClick}>
+        <button type={type} className={`${theme} ${size}`} onClick={onClick} disabled={disabled}>
             {children}
         </button>
     );
@@ -24,7 +18,7 @@ Button.propTypes = {
     size: PropTypes.string.isRequired,
     onClick: PropTypes.func,
     children: PropTypes.node.isRequired,
-    uncontrolled: PropTypes.bool.isRequired,
+    disabled: PropTypes.bool,
 };
 
 export default Button;

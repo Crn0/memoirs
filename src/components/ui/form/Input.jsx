@@ -3,14 +3,9 @@ import { useContext } from 'react';
 import ThemeContext from '../../../context/themeContext';
 import './css/input.module.css';
 
-export default function Input({ type, name, value, onChange, uncontrolled }) {
+export default function Input({ type, name, value, onChange }) {
     const { theme } = useContext(ThemeContext);
-
-    if (uncontrolled) {
-        return (
-            <input className={`${theme}`} type={type} name={name} required />
-        );
-    }
+    
     return (
         <input
             className={`${theme}`}
@@ -26,7 +21,6 @@ export default function Input({ type, name, value, onChange, uncontrolled }) {
 Input.propTypes = {
     type: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    value: PropTypes.any,
-    onChange: PropTypes.func,
-    uncontrolled: PropTypes.bool.isRequired,
+    value: PropTypes.any.isRequired,
+    onChange: PropTypes.func.isRequired,
 };

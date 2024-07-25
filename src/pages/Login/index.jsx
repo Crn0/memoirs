@@ -1,5 +1,5 @@
-import { useActionData, useNavigate, useLocation } from 'react-router-dom';
-import { useContext, useEffect } from 'react';
+import { useActionData } from 'react-router-dom';
+import { useContext, useEffect, useState } from 'react';
 import useAuthData from '../../hooks/useAuthData';
 import ThemeContext from '../../context/themeContext';
 import UserContext from '../../context/userContext';
@@ -12,15 +12,38 @@ import formConstants from '../../constants/form';
 import ErrorMessage from '../../components/errors/errorMessage';
 import fieldNameIncludes from '../../helpers/form/fieldnameIncludes';
 import FieldErrorMessage from '../../components/ui/form/FieldErrorMessage';
+import isEmail from '../../helpers/validator/isEmail';
+
+const formState = {
+    email: '',
+    password: '',
+}
 
 export default function Login() {
     const { theme } = useContext(ThemeContext);
     const { setUser } = useContext(UserContext);
+    const [status, setStatus] = useState('typing');
+    const [formInputs, setFormInputs] = useState(formState);
     const loginData = useActionData();
 
     const error = loginData?.error;
     const user = loginData?.user;
     const token = loginData?.token;
+    const isButtonDisabled = formInputs.email.trim() === '' || formInputs.password.trim() === '' || status === 'submitting';
+
+    const handleSubmit = () => {
+        if(isEmail(formInputs.email)) {
+            setStatus('submitting');
+
+            return
+        }
+
+        setStatus('error');
+    };
+
+    useEffect(() => {
+            if(error) setStatus('error')
+    },   [error])
 
     useAuthData(error, user, token, setUser);
 
@@ -54,14 +77,18 @@ export default function Login() {
                     }
                 })()}
 
-            <Form action="/login" method="POST">
+            <Form action="/login" method="POST" onSubmit={handleSubmit}>
                 <Fieldset fieldName={formConstants.EMAIL}>
                     <Label theme={theme} name="Email">
                         <Input
                             theme={theme}
                             type={formConstants.EMAIL}
                             name={formConstants.EMAIL}
-                            uncontrolled={true}
+                            value={formInputs.email}
+                            onChange={(e) => {
+                                const { name } = e.target
+                                setFormInputs((prev) => ({...prev, [name]: e.target.value}))
+                            }}
                         />
                     </Label>
                 </Fieldset>
@@ -72,13 +99,17 @@ export default function Login() {
                             theme={theme}
                             type={formConstants.PWD}
                             name={formConstants.PWD}
-                            uncontrolled={true}
+                            value={formInputs.password}
+                            onChange={(e) => {
+                                const { name } = e.target
+                                setFormInputs((prev) => ({...prev, [name]: e.target.value}))
+                            }}
                         />
                     </Label>
                 </Fieldset>
 
                 <Fieldset fieldName="button__field">
-                    <Button type={'submit'} size={'medium'} uncontrolled={true}>
+                    <Button type={'submit'} size={'medium'} disabled={ isButtonDisabled }>
                         Login
                     </Button>
                 </Fieldset>
