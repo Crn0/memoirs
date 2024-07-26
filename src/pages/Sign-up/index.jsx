@@ -1,5 +1,5 @@
 import { useActionData } from 'react-router-dom';
-import { useContext, useReducer, useState } from 'react';
+import { useContext, useEffect, useReducer, useState } from 'react';
 import useAuthData from '../../hooks/useAuthData';
 import ThemeContext from '../../context/themeContext';
 import UserContext from '../../context/userContext';
@@ -53,6 +53,10 @@ export default function SignUp() {
             type: fieldName,
         });
     }
+
+    useEffect(() => {
+        if(error) setStatus('error')
+    }, [error])
 
     useAuthData(error, user, token, setUser);
 
