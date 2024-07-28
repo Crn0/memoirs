@@ -1,9 +1,9 @@
 import rootLoader from './rootLoader';
 import postsLoader from './postLoader';
-// import loginLoader from './loginLoader';
+import postDetailLoader from './postDetailLoader';
 
 export default {
     rootLoader,
     postsLoader,
-    // loginLoader
+    postDetailLoader,
 };
