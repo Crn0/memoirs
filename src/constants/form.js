@@ -4,6 +4,7 @@ const EMAIL = 'email';
 const USERNAME = 'username';
 const PWD = 'password';
 const CONFIRM_PWD = 'confirm_password';
+const BODY = 'body';
 
 export default {
     FIRST_NAME,
@@ -12,4 +13,5 @@ export default {
     USERNAME,
     PWD,
     CONFIRM_PWD,
+    BODY,
 };
