@@ -13,7 +13,6 @@ export default function useAuthData(error, user, token, setUser) {
         }
 
         if (!error && user && token) {
-            console.log(!error, user, token);
             localStorage.add('token', token);
             setUser(user);
 
