@@ -5,14 +5,16 @@ import authStorage from '../helpers/storage/authStorage';
 
 export default async function loader() {
     try {
+        console.log(URL, 'url')
         if (authStorage.has('auth') === false) {
             if (localStorage.has('token')) {
                 const bearerToken = `Bearer ${localStorage.get('token')}`;
                 const res = await fetch(`${URL}/users/token/me`, {
                     headers: { Authorization: `${bearerToken}` },
                 });
+                console.log(res, 'response')
                 const data = await res.json();
-
+                console.log(data, 'data')
                 if (res.status >= 400) {
                     throw new Error(data.message, { cause: data.errors });
                 }
