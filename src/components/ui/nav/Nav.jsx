@@ -10,6 +10,9 @@ export default function NavBar() {
     const { user, setUser } = useContext(UserContext);
     const navigate = useNavigate();
 
+    const userId = user._id;
+    const username = user.username;
+
     const handleLogout = async () => {
         const localStorage = await import(
             '../../../helpers/storage/localStorage'
@@ -27,7 +30,7 @@ export default function NavBar() {
                 if (user) {
                     return (
                         <>
-                            <Link url="profile" className={theme}>
+                            <Link url={`users/${userId}/${username}`} className={theme}>
                                 {' '}
                                 Profile{' '}
                             </Link>

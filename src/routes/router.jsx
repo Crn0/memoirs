@@ -3,6 +3,7 @@ import App from '../App';
 import MainError from '../components/errors/main';
 import Posts from '../pages/Posts';
 import PostDetail from '../pages/Post';
+import Profile from '../pages/Profile/index';
 import SignUp from '../pages/Sign-up';
 import Login from '../pages/Login';
 import loaders from '../loaders/index';
@@ -31,6 +32,10 @@ const Router = () => {
                     loader: loaders.postDetailLoader,
                     action: actions.commentAction,
                     element: <PostDetail />
+                },
+                {
+                    path: 'users/:userId/:username?',
+                    element: <Profile />
                 },
                 {
                     path: 'sign-up',
