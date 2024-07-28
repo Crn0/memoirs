@@ -6,7 +6,7 @@ import Header from './components/ui/header';
 
 function App() {
     const userData = useLoaderData();
-    const [user, setUser] = useState(userData);
+    const [user, setUser] = useState(userData?.user || null);
     const [theme, setTheme] = useState('dark');
 
     return (
