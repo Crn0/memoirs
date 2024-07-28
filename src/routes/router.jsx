@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from '../App';
 import MainError from '../components/errors/main';
 import Posts from '../pages/Posts';
+import PostDetail from '../pages/Post';
 import SignUp from '../pages/Sign-up';
 import Login from '../pages/Login';
 import loaders from '../loaders/index';
@@ -24,6 +25,12 @@ const Router = () => {
                     path: 'posts',
                     loader: loaders.postsLoader,
                     element: <Posts />,
+                },
+                {
+                    path: 'posts/:postId',
+                    loader: loaders.postDetailLoader,
+                    action: actions.commentAction,
+                    element: <PostDetail />
                 },
                 {
                     path: 'sign-up',
