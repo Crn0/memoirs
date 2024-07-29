@@ -1,5 +1,6 @@
-import { useContext } from 'react';
 import PropTypes from 'prop-types';
+import { useContext } from 'react';
+import { DateTime } from 'luxon' 
 import ThemeContext from '../../../context/themeContext';
 import Link from '../link/Link';
 
@@ -8,6 +9,7 @@ export default function Card({ post }) {
     const hasCover = post.cover.url;
     const { firstName } = post.author;
     const { lastName } = post.author;
+    const date = DateTime.fromISO(post?.createdAt).toFormat('LLL dd');
 
     return (
         <div className={`post__card`}>
@@ -24,7 +26,7 @@ export default function Card({ post }) {
                 <div className={`post__top`}>
                     <div className={`post__author`}>
                         <p>{`${firstName} ${lastName}`}</p>
-                        <time>{post.createdAt}</time>
+                        <time>{date}</time>
                     </div>
                 </div>
 
