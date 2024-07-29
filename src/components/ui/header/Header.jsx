@@ -12,7 +12,7 @@ export default function Header({ children }) {
             className={`${theme}`}
             style={{ display: 'flex', justifyContent: 'space-around' }}
         >
-            <div style={{ display: 'flex' }}>
+            <div>
                 <Link url="/" theme={theme}>
                     Memoirs
                 </Link>
