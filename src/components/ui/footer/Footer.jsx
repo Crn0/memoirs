@@ -6,7 +6,7 @@ export default function Footer() {
     const { theme } = useContext(ThemeContext);
 
     return (
-        <footer className={`${theme}`}>
+        <footer style={{marginTop: 'auto'}} className={`${theme}`}>
             Crn0
             <a href="https://github.com/Crn0/memoirs" target="_blank" rel="noopener noreferrer">
                 <FaGithub />

@@ -3,7 +3,7 @@ import { Outlet, useLoaderData } from 'react-router-dom';
 import ThemeContext from './context/themeContext';
 import UserContextContext from './context/userContext';
 import Header from './components/ui/header';
-import Footer from './components/ui/footer/footer';
+import Footer from './components/ui/footer/Footer';
 
 function App() {
     const userData = useLoaderData();
