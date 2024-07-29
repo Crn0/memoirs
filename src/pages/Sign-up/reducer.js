@@ -8,43 +8,46 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 [type]: value
-            }
+            };
         }
 
         case formConstants['LAST_NAME'] : {
             return {
                 ...state,
                 [type]: value
-            }
+            };
         }
 
         case formConstants['EMAIL'] : {
             return {
                 ...state,
                 [type]: value
-            }
+            };
         }
 
         case formConstants['USERNAME'] : {
             return {
                 ...state,
                 [type]: value
-            }
+            };
         }
 
         case formConstants['PWD'] : {
             return {
                 ...state,
                 [type]: value
-            }
+            };
         }
 
         case formConstants['CONFIRM_PWD'] : {
             return {
                 ...state,
                 [type]: value
-            }
+            };
         }
+
+        default:
+            throw new Error(`Unknown action: ${type}`);
     }
 };
 
