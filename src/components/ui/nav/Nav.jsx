@@ -8,10 +8,11 @@ import Button from '../button/Button';
 export default function NavBar() {
     const { theme } = useContext(ThemeContext);
     const { user, setUser } = useContext(UserContext);
+    
     const navigate = useNavigate();
 
-    const userId = user._id;
-    const username = user.username;
+    const userId = user?._id;
+    const username = user?.username;
 
     const handleLogout = async () => {
         const localStorage = await import(
