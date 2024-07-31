@@ -1,7 +1,8 @@
+import { defer } from 'react-router-dom';
 import { URL } from '../constants/env';
 import localStorage from '../helpers/storage/localStorage';
 
-const loader = async () => {
+const getPosts = async () => {
     try {
         const bearerToken = localStorage.has('token')
             ? `Bearer ${localStorage.get('token')}`
@@ -17,13 +18,16 @@ const loader = async () => {
             throw new Error('Server Error');
         }
 
-        return data;
+        return data
     } catch (error) {
-        console.log(error);
-        return {
-            error: error.message,
-        };
+        return Promise.reject(error)
     }
+};
+
+const loader = () => {
+    const postsPromise = getPosts();
+
+    return defer({ data: postsPromise });
 };
 
 export default loader;

@@ -1,32 +1,28 @@
-import { useContext } from 'react';
-import { useLoaderData } from 'react-router-dom';
-import ThemeContext from '../../context/themeContext';
-import Card from '../../components/ui/card/card';
+import { Suspense } from 'react';
+import { useLoaderData, Await} from 'react-router-dom';
+import PostLists from './List';
+import PostError from './Error';
+import Spinner from '../../components/ui/spinner';
 
 export default function Posts() {
-    const { posts } = useLoaderData();
-    const { theme } = useContext(ThemeContext);
-
+    const { data } = useLoaderData();
+    
     /**
      * TODO: add bookmark feature
      */
-
-
+    
     return (
-        <div className={`${theme} posts__container`}>
-            {(() => {
-                if (!posts?.length <= 0) {
-                    return (
-                        <>
-                            {posts.map((post) => (
-                                <Card post={post} key={post._id} />
-                            ))}
-                        </>
-                    );
-                }
-
-                return <p>There are no posts.</p>;
-            })()}
-        </div>
+        <Suspense
+            fallback={<Spinner message='Fetching blog posts....'/>}
+        >
+            <Await
+                resolve={data}
+                errorElement={<PostError />}
+            >
+                <PostLists />
+                    
+            </Await>
+            
+        </Suspense>
     );
 }

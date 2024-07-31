@@ -1,7 +1,8 @@
+import { defer } from 'react-router-dom';
 import { URL } from '../constants/env';
 import localStorage from '../helpers/storage/localStorage';
 
-const loader = async ({ params }) => {
+const getPost = async (params) => {
     try {
         const { postId } = params;
 
@@ -18,16 +19,22 @@ const loader = async ({ params }) => {
         if (res.status >= 400) {
             throw new Error(data.message);
         }
-        return {
-            post: data.post,
-            comments: data.comments,
-        };
+        return data;
     } catch (error) {
-         return {
-                error: error.message,
-                code: error.code
-         }
+         return Promise.reject({
+            error: {
+                message: error.message,
+                code: error.code,
+            },
+            
+     });
     }
+};
+
+const loader = async ({ params }) => {
+    const postPromise = getPost(params);
+
+    return defer({ data: postPromise });
 };
 
 export default loader;
