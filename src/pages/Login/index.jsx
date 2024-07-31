@@ -17,7 +17,7 @@ import isEmail from '../../helpers/validator/isEmail';
 const formState = {
     email: '',
     password: '',
-}
+};
 
 export default function Login() {
     const { theme } = useContext(ThemeContext);
@@ -29,21 +29,24 @@ export default function Login() {
     const error = loginData?.error;
     const user = loginData?.user;
     const token = loginData?.token;
-    const isButtonDisabled = formInputs.email.trim() === '' || formInputs.password.trim() === '' || status === 'submitting';
+    const isButtonDisabled =
+        formInputs.email.trim() === '' ||
+        formInputs.password.trim() === '' ||
+        status === 'submitting';
 
     const handleSubmit = () => {
-        if(isEmail(formInputs.email)) {
+        if (isEmail(formInputs.email)) {
             setStatus('submitting');
 
-            return
+            return;
         }
 
         setStatus('error');
     };
 
     useEffect(() => {
-            if(error) setStatus('error')
-    },   [error])
+        if (error) setStatus('error');
+    }, [error]);
 
     useAuthData(error, user, token, setUser);
 
@@ -86,8 +89,11 @@ export default function Login() {
                             name={formConstants.EMAIL}
                             value={formInputs.email}
                             onChange={(e) => {
-                                const { name } = e.target
-                                setFormInputs((prev) => ({...prev, [name]: e.target.value}))
+                                const { name } = e.target;
+                                setFormInputs((prev) => ({
+                                    ...prev,
+                                    [name]: e.target.value,
+                                }));
                             }}
                         />
                     </Label>
@@ -101,15 +107,22 @@ export default function Login() {
                             name={formConstants.PWD}
                             value={formInputs.password}
                             onChange={(e) => {
-                                const { name } = e.target
-                                setFormInputs((prev) => ({...prev, [name]: e.target.value}))
+                                const { name } = e.target;
+                                setFormInputs((prev) => ({
+                                    ...prev,
+                                    [name]: e.target.value,
+                                }));
                             }}
                         />
                     </Label>
                 </Fieldset>
 
                 <Fieldset fieldName="button__field">
-                    <Button type={'submit'} size={'medium'} disabled={ isButtonDisabled }>
+                    <Button
+                        type={'submit'}
+                        size={'medium'}
+                        disabled={isButtonDisabled}
+                    >
                         Login
                     </Button>
                 </Fieldset>

@@ -23,20 +23,27 @@ export default function SignUp() {
     const token = signUpData?.token;
 
     const disableButton = (() => {
-        const fieldNames = ['firstName', 'lastName', 'email', 'username', 'password', 'confirm_password'];
+        const fieldNames = [
+            'firstName',
+            'lastName',
+            'email',
+            'username',
+            'password',
+            'confirm_password',
+        ];
         const areFieldsEmpty = fieldNames.map((n) => inputs[n].trim() === '');
 
-        if(areFieldsEmpty.includes(true) || status === 'submitting') return true;
-        
+        if (areFieldsEmpty.includes(true) || status === 'submitting')
+            return true;
+
         return false;
     })();
 
-
     const handleSubmit = () => {
-        if(isEmail(inputs.email)) {
+        if (isEmail(inputs.email)) {
             setStatus('submitting');
 
-            return
+            return;
         }
 
         setStatus('error');
@@ -52,14 +59,13 @@ export default function SignUp() {
             value,
             type: fieldName,
         });
-    }
+    };
 
     useEffect(() => {
-        if(error) setStatus('error')
-    }, [error])
+        if (error) setStatus('error');
+    }, [error]);
 
     useAuthData(error, user, token, setUser);
-
 
     return (
         <div className={`${theme} form__container`}>
@@ -83,14 +89,14 @@ export default function SignUp() {
                     }
                 })}
             </div>
-            <Form action="/sign-up" method="POST" onSubmit={ handleSubmit }>
+            <Form action="/sign-up" method="POST" onSubmit={handleSubmit}>
                 <Fieldset fieldName="fullname__field">
                     <Label name="first-name:">
                         <Input
                             type="text"
                             name="firstName"
-                            value={ value('firstName') }
-                            onChange={ onChange }
+                            value={value('firstName')}
+                            onChange={onChange}
                         />
                     </Label>
 
@@ -98,19 +104,19 @@ export default function SignUp() {
                         <Input
                             type="text"
                             name="lastName"
-                            value={ value('lastName') }
-                            onChange={ onChange }
+                            value={value('lastName')}
+                            onChange={onChange}
                         />
                     </Label>
                 </Fieldset>
 
                 <Fieldset fieldName="email_username__field">
                     <Label name="email:">
-                        <Input 
-                            type="email" 
-                            name="email"                              
-                            value={ value('email') }
-                            onChange={ onChange }
+                        <Input
+                            type="email"
+                            name="email"
+                            value={value('email')}
+                            onChange={onChange}
                         />
                     </Label>
 
@@ -118,8 +124,8 @@ export default function SignUp() {
                         <Input
                             type="text"
                             name="username"
-                            value={ value('username') }
-                            onChange={ onChange }
+                            value={value('username')}
+                            onChange={onChange}
                         />
                     </Label>
                 </Fieldset>
@@ -129,8 +135,8 @@ export default function SignUp() {
                         <Input
                             type="password"
                             name="password"
-                            value={ value('password') }
-                            onChange={ onChange }
+                            value={value('password')}
+                            onChange={onChange}
                         />
                     </Label>
 
@@ -138,14 +144,18 @@ export default function SignUp() {
                         <Input
                             type="password"
                             name="confirm_password"
-                            value={ value('confirm_password') }
-                            onChange={ onChange }
+                            value={value('confirm_password')}
+                            onChange={onChange}
                         />
                     </Label>
                 </Fieldset>
 
                 <Fieldset fieldName="button__field">
-                    <Button type="submit" size="medium" disabled={ disableButton }>
+                    <Button
+                        type="submit"
+                        size="medium"
+                        disabled={disableButton}
+                    >
                         Sign Up
                     </Button>
                 </Fieldset>

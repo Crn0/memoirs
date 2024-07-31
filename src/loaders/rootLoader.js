@@ -16,9 +16,9 @@ export default async function loader() {
                 if (res.status >= 400) {
                     throw new Error(data.message, { cause: data.errors });
                 }
-                
+
                 return {
-                    user: data.user
+                    user: data.user,
                 };
             }
 

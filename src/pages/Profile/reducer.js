@@ -3,8 +3,8 @@ import formConstants from '../../constants/form';
 const reducer = (state, action) => {
     const { type, value } = action;
 
-    switch(type) {
-        case formConstants['FIRST_NAME']: 
+    switch (type) {
+        case formConstants['FIRST_NAME']:
             return {
                 ...state,
                 [type]: value,
@@ -16,7 +16,7 @@ const reducer = (state, action) => {
                 [type]: value,
             };
 
-        case formConstants['EMAIL']: 
+        case formConstants['EMAIL']:
             return {
                 ...state,
                 [type]: value,

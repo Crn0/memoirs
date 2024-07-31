@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
-import formConstants from '../../../constants/form'
+import formConstants from '../../../constants/form';
 import Form from './Form';
 import Fieldset from './Fieldset';
 import Textarea from './Textarea';
 import Button from '../button/Button';
 
 export default function CommentForm({ cols, rows, btnSize, children }) {
-    const [status, setStatus ] = useState('typing');
+    const [status, setStatus] = useState('typing');
     const [value, setValue] = useState('');
 
     const handleSubmit = () => {
@@ -15,33 +15,27 @@ export default function CommentForm({ cols, rows, btnSize, children }) {
     };
 
     useEffect(() => {
-        if(status === 'submitting') setStatus('typing')
-    }, [status])
+        if (status === 'submitting') setStatus('typing');
+    }, [status]);
 
     return (
-        <Form
-            action=""
-            method="POST"
-            onSubmit={handleSubmit}
-        >
-            <Fieldset fieldName='comment__field'>
-                <Textarea 
+        <Form action="" method="POST" onSubmit={handleSubmit}>
+            <Fieldset fieldName="comment__field">
+                <Textarea
                     name={formConstants.BODY}
-                    cols={ cols }
-                    rows= { rows }
-                    value={ value }
-                    onChange={(e) => (setValue(e.target.value))}
+                    cols={cols}
+                    rows={rows}
+                    value={value}
+                    onChange={(e) => setValue(e.target.value)}
                 />
-                {
-                    children
-                }
+                {children}
             </Fieldset>
 
-            <Fieldset fieldName='button__field'>
+            <Fieldset fieldName="button__field">
                 <Button
-                    type='submit'
-                    size={ btnSize }
-                    disabled={ value.length === 0 || status === 'submitting'}
+                    type="submit"
+                    size={btnSize}
+                    disabled={value.length === 0 || status === 'submitting'}
                 >
                     Submit
                 </Button>

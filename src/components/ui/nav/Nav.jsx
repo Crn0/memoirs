@@ -8,7 +8,7 @@ import Button from '../button/Button';
 export default function NavBar() {
     const { theme } = useContext(ThemeContext);
     const { user, setUser } = useContext(UserContext);
-    
+
     const navigate = useNavigate();
 
     const userId = user?._id;
@@ -31,7 +31,10 @@ export default function NavBar() {
                 if (user) {
                     return (
                         <>
-                            <Link url={`users/${userId}/${username}`} className={theme}>
+                            <Link
+                                url={`users/${userId}/${username}`}
+                                className={theme}
+                            >
                                 {' '}
                                 Profile{' '}
                             </Link>

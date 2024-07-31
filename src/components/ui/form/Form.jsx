@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import { Form as ReactForm } from 'react-router-dom';
 import { useContext } from 'react';
 import ThemeContext from '../../../context/themeContext';
-import './css/form.module.css'
+import './css/form.module.css';
 
-export default function Form({ action, method, onSubmit,children }) {
+export default function Form({ action, method, onSubmit, children }) {
     const { theme } = useContext(ThemeContext);
 
     return (

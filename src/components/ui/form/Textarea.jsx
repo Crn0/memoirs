@@ -1,4 +1,3 @@
-
 import PropTypes from 'prop-types';
 import { useContext } from 'react';
 import ThemeContext from '../../../context/themeContext';
@@ -8,16 +7,16 @@ export default function Textarea({ name, value, cols, rows, onChange }) {
     const { theme } = useContext(ThemeContext);
 
     return (
-        <textarea 
-            className={`${ theme }`} 
-            name={ name } 
-            cols={ cols } 
-            rows={ rows }
-            value={ value } 
-            onChange={ onChange }
+        <textarea
+            className={`${theme}`}
+            name={name}
+            cols={cols}
+            rows={rows}
+            value={value}
+            onChange={onChange}
             required
         />
-    )
+    );
 }
 
 Textarea.propTypes = {
@@ -26,5 +25,4 @@ Textarea.propTypes = {
     onChange: PropTypes.func.isRequired,
     cols: PropTypes.number.isRequired,
     rows: PropTypes.number.isRequired,
-
 };

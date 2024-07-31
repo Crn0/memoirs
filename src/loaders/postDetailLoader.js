@@ -9,7 +9,7 @@ const getPost = async (params) => {
         const bearerToken = localStorage.has('token')
             ? `Bearer ${localStorage.get('token')}`
             : '';
-        
+
         const res = await fetch(`${URL}/posts/${postId}`, {
             headers: { Authorization: `${bearerToken}` },
         });
@@ -21,13 +21,12 @@ const getPost = async (params) => {
         }
         return data;
     } catch (error) {
-         return Promise.reject({
+        return Promise.reject({
             error: {
                 message: error.message,
                 code: error.code,
             },
-            
-     });
+        });
     }
 };
 

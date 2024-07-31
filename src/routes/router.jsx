@@ -31,11 +31,11 @@ const Router = () => {
                     path: 'posts/:postId',
                     loader: loaders.postDetailLoader,
                     action: actions.commentAction,
-                    element: <PostDetail />
+                    element: <PostDetail />,
                 },
                 {
                     path: 'users/:userId/:username?',
-                    element: <Profile />
+                    element: <Profile />,
                 },
                 {
                     path: 'sign-up',

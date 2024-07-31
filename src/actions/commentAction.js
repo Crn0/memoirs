@@ -27,23 +27,22 @@ const add = async (formData, { postId }) => {
             throw new FormError(data.message, data.error.message, data.code);
         }
 
-
         return {};
     } catch (error) {
         return {
             error: {
                 messages: error.errors,
                 httpCode: error.httpCode,
-            }
-        }
+            },
+        };
     }
 };
 
 const destroy = async (formData, { postId }) => {
     try {
         const bearerToken = localStorage.has('token')
-        ? `Bearer ${localStorage.get('token')}`
-        : '';
+            ? `Bearer ${localStorage.get('token')}`
+            : '';
 
         const myHeaders = new Headers();
 
@@ -51,8 +50,11 @@ const destroy = async (formData, { postId }) => {
         myHeaders.append('Authorization', bearerToken);
 
         const commentId = formData.get('comment-id');
-        
-        const res = await fetch(`${URL}/posts/${postId}/comments/${commentId}`, { method: 'DELETE', headers: myHeaders, });
+
+        const res = await fetch(
+            `${URL}/posts/${postId}/comments/${commentId}`,
+            { method: 'DELETE', headers: myHeaders }
+        );
         const data = await res.json();
 
         if (res.status >= 400) {
@@ -65,31 +67,27 @@ const destroy = async (formData, { postId }) => {
             error: {
                 messages: error.errors,
                 httpCode: error.httpCode,
-            }
-        }
+            },
+        };
     }
 };
-
 
 export default async function action({ params, request }) {
     try {
         const formData = await request.formData();
         const formId = formData.get('form-id');
 
-        switch(formId) {
+        switch (formId) {
             case 'ADD_COMMENT':
-
-            return add(formData, params);
+                return add(formData, params);
 
             case 'DELETE_COMMENT':
-
-                return destroy(formData, params)
+                return destroy(formData, params);
 
             default:
-                throw new Error('Invalid form id')
+                throw new Error('Invalid form id');
         }
-
     } catch (error) {
-        return error
+        return error;
     }
-}; 
+}

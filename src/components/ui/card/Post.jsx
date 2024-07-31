@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useContext } from 'react';
-import { DateTime } from 'luxon' 
+import { DateTime } from 'luxon';
 import ThemeContext from '../../../context/themeContext';
 import Link from '../link/Link';
 

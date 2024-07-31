@@ -18,9 +18,9 @@ const getPosts = async () => {
             throw new Error('Server Error');
         }
 
-        return data
+        return data;
     } catch (error) {
-        return Promise.reject(error)
+        return Promise.reject(error);
     }
 };
 
