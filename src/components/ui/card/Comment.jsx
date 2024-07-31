@@ -8,7 +8,7 @@ import Fieldset from '../form/Fieldset';
 import Input from '../form/Input';
 import Button from '../button/Button';
 
-export default function Comment({ comment }) {
+export default function CommentCard({ comment }) {
     const { theme } = useContext(ThemeContext);
     const { user } = useContext(UserContext);
     const [status, setStatus] = useState('idle');
@@ -91,6 +91,6 @@ export default function Comment({ comment }) {
     );
 }
 
-Comment.propTypes = {
+CommentCard.propTypes = {
     comment: PropTypes.object.isRequired,
 };

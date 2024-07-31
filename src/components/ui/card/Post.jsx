@@ -4,7 +4,7 @@ import { DateTime } from 'luxon'
 import ThemeContext from '../../../context/themeContext';
 import Link from '../link/Link';
 
-export default function Card({ post }) {
+export default function PostCard({ post }) {
     const { theme } = useContext(ThemeContext);
     const hasCover = post.cover.url;
     const { firstName } = post.author;
@@ -40,6 +40,6 @@ export default function Card({ post }) {
     );
 }
 
-Card.propTypes = {
+PostCard.propTypes = {
     post: PropTypes.object.isRequired,
 };
