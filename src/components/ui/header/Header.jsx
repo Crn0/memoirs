@@ -25,15 +25,15 @@ export default function Header({ children }) {
                         type="button"
                         className={theme}
                         size={'small'}
+                        name={theme}
                         onClick={() => {
                             setTheme((mode) =>
                                 mode === 'light' ? 'dark' : 'light'
                             );
                         }}
+                        testId={"theme-switcher"}
                     >
-                    
                         <ThemeIcon />
-
                     </Button>
                 </div>
             </div>
