@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import ThemeContext from '../../../context/themeContext';
 import Button from '../button/Button';
 import Link from '../link/Link';
+import ThemeIcon from '../icon/Theme';
 
 export default function Header({ children }) {
     const { theme, setTheme } = useContext(ThemeContext);
@@ -13,29 +14,28 @@ export default function Header({ children }) {
             style={{ display: 'flex', justifyContent: 'space-around' }}
         >
             <div>
-                <Link url="/" theme={theme}>
-                    Memoirs
-                </Link>
+                <div className="site__name">
+                    <Link url="/" theme={theme}>
+                        Memoirs
+                    </Link>
+                </div>
 
-                <Button
-                    type="button"
-                    className={theme}
-                    size={'small'}
-                    onClick={() => {
-                        setTheme((mode) =>
-                            mode === 'light' ? 'dark' : 'light'
-                        );
-                    }}
-                    uncontrolled={false}
-                >
-                    {(() => {
-                        if (theme == 'light') {
-                            return 'light';
-                        }
+                <div className="theme__switcher">
+                    <Button
+                        type="button"
+                        className={theme}
+                        size={'small'}
+                        onClick={() => {
+                            setTheme((mode) =>
+                                mode === 'light' ? 'dark' : 'light'
+                            );
+                        }}
+                    >
+                    
+                        <ThemeIcon />
 
-                        return 'dark';
-                    })()}
-                </Button>
+                    </Button>
+                </div>
             </div>
             {children}
         </header>
