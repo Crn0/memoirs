@@ -31,7 +31,7 @@ export default function Header({ children }) {
                                 mode === 'light' ? 'dark' : 'light'
                             );
                         }}
-                        testId={"theme-switcher"}
+                        testId={'theme-switcher'}
                     >
                         <ThemeIcon />
                     </Button>

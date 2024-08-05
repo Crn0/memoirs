@@ -33,9 +33,9 @@ export default function Login() {
         formInputs.email.trim() === '' ||
         formInputs.password.trim() === '' ||
         status === 'submitting';
-        
+
     const handleSubmit = () => {
-        setStatus('submitting')
+        setStatus('submitting');
     };
 
     useEffect(() => {

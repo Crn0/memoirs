@@ -7,15 +7,15 @@ import App from "../src/App";
 import mockData from "./mockData";
 
 let routes = [
-    {
-      path: "/",
-      element: <App />,
-      loader: () => {
-        const { users } = mockData.USERS
+  {
+    path: "/",
+    element: <App />,
+    loader: () => {
+      const { users } = mockData.USERS;
 
-        return users[0]
-      },
-    }
+      return users[0];
+    },
+  },
 ];
 
 const setup = (router) => {
@@ -26,93 +26,93 @@ const setup = (router) => {
 };
 
 afterEach(() => {
-    routes = [
-        {
-          path: "/",
-          element: <App />,
-          loader: () => {
-            const { users } = mockData.USERS
-    
-            return users[0]
-          },
-        }
-    ];
+  routes = [
+    {
+      path: "/",
+      element: <App />,
+      loader: () => {
+        const { users } = mockData.USERS;
+
+        return users[0];
+      },
+    },
+  ];
 });
 
 describe("Header component", () => {
-
-    it("renders the title link and theme switcher button", async () => {
-        const router = createMemoryRouter(routes, {
-            initialEntries: ["/"],
-            initialIndex: 1,
-        });
-
-        render(<RouterProvider router={router} />);
-
-        await waitFor(() => {
-            expect(screen.getByRole("link", { name: "Memoirs" })).toBeInTheDocument();
-            expect(screen.getByTestId("theme-switcher")).toBeInTheDocument();
-        });
-
+  it("renders the title link and theme switcher button", async () => {
+    const router = createMemoryRouter(routes, {
+      initialEntries: ["/"],
+      initialIndex: 1,
     });
 
-    it("check if the theme button renders correctly when user click", async () => {
-        routes[0].loader = null
+    render(<RouterProvider router={router} />);
 
-        const router = createMemoryRouter(routes, {
-            initialEntries: ["/"],
-            initialIndex: 1,
-        });
+    await waitFor(() => {
+      expect(screen.getByRole("link", { name: "Memoirs" })).toBeInTheDocument();
+      expect(screen.getByTestId("theme-switcher")).toBeInTheDocument();
+    });
+  });
 
-        const { user } = setup(router);
+  it("check if the theme button renders correctly when user click", async () => {
+    routes[0].loader = null;
 
-        const button = screen.getByTestId("theme-switcher");
-        const themeArray = ["light", "dark", "light", "dark", "light"];
-
-        expect(screen.getByTestId("dark")).toBeInTheDocument();
-
-        await act(async () => {
-            await user.click(button);
-        });
-
-        expect(screen.getByTestId("light")).toBeInTheDocument();
-
-        for (let i = 0; i < themeArray.length; i += 1) {
-            await act(async () => {
-                await user.click(button);
-
-                expect(screen.getByTestId(`${themeArray[i]}`)).toBeInTheDocument();
-            })
-        }
+    const router = createMemoryRouter(routes, {
+      initialEntries: ["/"],
+      initialIndex: 1,
     });
 
-    it("renders the login and sign up link if the user is not authenticated", async () => {
-        routes[0].loader = () => null;
+    const { user } = setup(router);
 
-        const router = createMemoryRouter(routes, {
-            initialEntries: ["/"],
-            initialIndex: 1,
-        });
+    const button = screen.getByTestId("theme-switcher");
+    const themeArray = ["light", "dark", "light", "dark", "light"];
 
-        render(<RouterProvider router={router} />);
+    expect(screen.getByTestId("dark")).toBeInTheDocument();
 
-        await waitFor(() => {
-            expect(screen.getByRole("link", { name: "Sign-up" })).toBeInTheDocument();
-            expect(screen.getByRole("link", { name: "Login" })).toBeInTheDocument();
-        });
+    await act(async () => {
+      await user.click(button);
     });
 
-    it("renders the profile and logout if the user is authenticated", async () => {
-        const router = createMemoryRouter(routes, {
-            initialEntries: ["/"],
-            initialIndex: 1,
-        });
+    expect(screen.getByTestId("light")).toBeInTheDocument();
 
-        render(<RouterProvider router={router} />);
+    for (let i = 0; i < themeArray.length; i += 1) {
+      await act(async () => {
+        await user.click(button);
 
-        await waitFor(() => {
-            expect(screen.getByRole("link", { name: "Profile" })).toBeInTheDocument();
-            expect(screen.getByRole("button", { name: "Logout" })).toBeInTheDocument();
-        })
-    })
+        expect(screen.getByTestId(`${themeArray[i]}`)).toBeInTheDocument();
+      });
+    }
+  });
+
+  it("renders the login and sign up link if the user is not authenticated", async () => {
+    routes[0].loader = () => null;
+
+    const router = createMemoryRouter(routes, {
+      initialEntries: ["/"],
+      initialIndex: 1,
+    });
+
+    render(<RouterProvider router={router} />);
+
+    await waitFor(() => {
+      expect(screen.getByRole("link", { name: "Sign-up" })).toBeInTheDocument();
+      expect(screen.getByRole("link", { name: "Login" })).toBeInTheDocument();
+    });
+  });
+
+  it("renders the profile and logout if the user is authenticated", async () => {
+    const router = createMemoryRouter(routes, {
+      initialEntries: ["/"],
+      initialIndex: 1,
+    });
+
+    render(<RouterProvider router={router} />);
+
+    await waitFor(() => {
+      expect(screen.getByRole("link", { name: "Profile" })).toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: "Logout" }),
+      ).toBeInTheDocument();
+    });
+  });
 });

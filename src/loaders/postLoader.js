@@ -24,8 +24,8 @@ const getPosts = async () => {
         return Promise.reject({
             error: {
                 message: error.message,
-                code: error.httpCode
-            }
+                code: error.httpCode,
+            },
         });
     }
 };

@@ -26,8 +26,11 @@ const action = async ({ request }) => {
         const data = await req.json();
 
         if (data.code >= 400) {
-            const lowerCaseMessages = data.error.message.map(m => ({...m, message: m.message.toLowerCase()}))
-            console.log(lowerCaseMessages)
+            const lowerCaseMessages = data.error.message.map((m) => ({
+                ...m,
+                message: m.message.toLowerCase(),
+            }));
+            console.log(lowerCaseMessages);
             throw new FormError(data.message, lowerCaseMessages, data.code);
         }
 

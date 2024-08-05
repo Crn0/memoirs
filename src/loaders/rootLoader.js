@@ -7,7 +7,7 @@ export default async function loader() {
         if (localStorage.has('token')) {
             const bearerToken = `Bearer ${localStorage.get('token')}`;
             const res = await fetch(`${URL}/users/token/me`, {
-                    headers: { Authorization: `${bearerToken}` },
+                headers: { Authorization: `${bearerToken}` },
             });
             const data = await res.json();
 

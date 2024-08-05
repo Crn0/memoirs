@@ -6,5 +6,13 @@ import ThemeContext from '../../../context/themeContext';
 export default function ThemeIcon() {
     const { theme } = useContext(ThemeContext);
 
-    return theme === 'dark' ? <div data-testid="dark"><MdDarkMode /></div> : <div data-testid="light"><CiLight /></div>;
+    return theme === 'dark' ? (
+        <div data-testid="dark">
+            <MdDarkMode />
+        </div>
+    ) : (
+        <div data-testid="light">
+            <CiLight />
+        </div>
+    );
 }

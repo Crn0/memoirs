@@ -40,7 +40,7 @@ export default function CommentCard({ comment }) {
                                         !comment.isDeleted
                                     ) {
                                         return (
-                                            <div className="comment__delete"> 
+                                            <div className="comment__delete">
                                                 <Form
                                                     action=""
                                                     method="POST"
@@ -76,10 +76,9 @@ export default function CommentCard({ comment }) {
                                                     </Fieldset>
                                                 </Form>
                                             </div>
-                                            );
-                                        }
-                                })()
-                            }
+                                        );
+                                    }
+                                })()}
                         </div>
                     );
                 }
