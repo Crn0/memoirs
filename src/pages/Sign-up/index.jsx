@@ -91,7 +91,7 @@ export default function SignUp() {
             </div>
             <Form action="/sign-up" method="POST" onSubmit={handleSubmit}>
                 <Fieldset fieldName="fullname__field">
-                    <Label name="first-name:">
+                    <Label name="First name:">
                         <Input
                             type="text"
                             name="firstName"
@@ -100,7 +100,7 @@ export default function SignUp() {
                         />
                     </Label>
 
-                    <Label name="last-name:">
+                    <Label name="Last name:">
                         <Input
                             type="text"
                             name="lastName"
@@ -111,7 +111,7 @@ export default function SignUp() {
                 </Fieldset>
 
                 <Fieldset fieldName="email_username__field">
-                    <Label name="email:">
+                    <Label name="Email:">
                         <Input
                             type="email"
                             name="email"
@@ -120,7 +120,7 @@ export default function SignUp() {
                         />
                     </Label>
 
-                    <Label name="username:">
+                    <Label name="Username:">
                         <Input
                             type="text"
                             name="username"
@@ -131,7 +131,7 @@ export default function SignUp() {
                 </Fieldset>
 
                 <Fieldset fieldName="password__field">
-                    <Label name="password">
+                    <Label name="Password:">
                         <Input
                             type="password"
                             name="password"
@@ -140,7 +140,7 @@ export default function SignUp() {
                         />
                     </Label>
 
-                    <Label name="confirm-password:">
+                    <Label name="Confirm password:">
                         <Input
                             type="password"
                             name="confirm_password"
