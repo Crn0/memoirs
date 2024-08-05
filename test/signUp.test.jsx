@@ -45,6 +45,10 @@ const mockSignUpAction = vi.fn(async ({ request }) => {
         message: "password does not match",
         type: "field",
       },
+      {
+        field: "password",
+        message: "username must not contain special characters"
+      }
     ],
   };
 
@@ -68,6 +72,14 @@ const mockSignUpAction = vi.fn(async ({ request }) => {
     return {
       error: {
         messages: [errors.messages[2]],
+      },
+    };
+  }
+  // https://regexr.com/83re3
+  if (/^[{a-zA-Z}]{1,}\d{0,}[{a-zA-Z}]{0,}$/g.test(submission.username ) === false) {
+    return {
+      error: {
+        messages: [errors.messages[3]],
       },
     };
   }
@@ -179,6 +191,25 @@ describe("Sign-up form page", () => {
     await user.click(screen.getByRole("button", { name: "Sign Up" }));
 
     expect(screen.getByText(/username already in use/)).toBeInTheDocument();
+  });
+
+  it("renders an error message if the username has special characters", async () => {
+    const router = createMemoryRouter(routes, {
+      initialEntries: ["/", "/sign-up"],
+      initialIndex: 1,
+    });
+
+    const { user } = setup(router);
+
+    await user.type(screen.getByLabelText("First name:"), "Jane");
+    await user.type(screen.getByLabelText("Last name:"), "Doe");
+    await user.type(screen.getByLabelText("Username:"), "jane_doe");
+    await user.type(screen.getByLabelText("Email:"), "JD@gmail.com");
+    await user.type(screen.getByLabelText("Password:"), "1234");
+    await user.type(screen.getByLabelText("Confirm password:"), "1234");
+    await user.click(screen.getByRole("button", { name: "Sign Up" }));
+
+    expect(screen.getByText(/username must not contain special characters/)).toBeInTheDocument();
   });
 
   it("renders an error message if the password are not the same", async () => {
