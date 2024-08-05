@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useContext } from 'react';
 import ThemeContext from '../../../context/themeContext';
 
-function Button({ type, size, onClick, children, disabled = false }) {
+function Button({ type, size, onClick, children, testId, disabled = false }) {
     const { theme } = useContext(ThemeContext);
 
     return (
@@ -11,6 +11,7 @@ function Button({ type, size, onClick, children, disabled = false }) {
             className={`${theme} ${size}`}
             onClick={onClick}
             disabled={disabled}
+            data-testid={testId}
         >
             {children}
         </button>
@@ -23,6 +24,7 @@ Button.propTypes = {
     onClick: PropTypes.func,
     children: PropTypes.node.isRequired,
     disabled: PropTypes.bool,
+    testId: PropTypes.string,
 };
 
 export default Button;

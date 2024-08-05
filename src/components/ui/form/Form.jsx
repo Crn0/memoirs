@@ -9,6 +9,7 @@ export default function Form({ action, method, onSubmit, children }) {
 
     return (
         <ReactForm
+            aria-label="form"
             onSubmit={onSubmit}
             action={action}
             method={method}

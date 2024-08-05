@@ -35,13 +35,7 @@ export default function Login() {
         status === 'submitting';
 
     const handleSubmit = () => {
-        if (isEmail(formInputs.email)) {
-            setStatus('submitting');
-
-            return;
-        }
-
-        setStatus('error');
+        setStatus('submitting');
     };
 
     useEffect(() => {
@@ -82,7 +76,7 @@ export default function Login() {
 
             <Form action="/login" method="POST" onSubmit={handleSubmit}>
                 <Fieldset fieldName={formConstants.EMAIL}>
-                    <Label theme={theme} name="Email">
+                    <Label theme={theme} name="Email:">
                         <Input
                             theme={theme}
                             type={formConstants.EMAIL}
@@ -100,7 +94,7 @@ export default function Login() {
                 </Fieldset>
 
                 <Fieldset fieldName="password__field">
-                    <Label theme={theme} name="Password">
+                    <Label theme={theme} name="Password:">
                         <Input
                             theme={theme}
                             type={formConstants.PWD}

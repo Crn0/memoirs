@@ -17,6 +17,7 @@ export default function PostDetail() {
 
     const isAuth = user ? true : false;
     const cover = post?.cover;
+    const hasCover = post?.cover?.url !== '';
     const imageUrl = cover?.url;
     const author = post?.author;
     const title = post?.title;
@@ -32,7 +33,7 @@ export default function PostDetail() {
             <div className="post__container">
                 <div className="post__header">
                     {(() => {
-                        if (cover) {
+                        if (hasCover) {
                             return (
                                 <div className="cover__container">
                                     <img

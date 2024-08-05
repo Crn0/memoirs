@@ -1,6 +1,7 @@
 import { defer } from 'react-router-dom';
 import { URL } from '../constants/env';
 import localStorage from '../helpers/storage/localStorage';
+import BaseError from '../helpers/errors/baseError';
 
 const getPosts = async () => {
     try {
@@ -15,12 +16,17 @@ const getPosts = async () => {
         const data = await res.json();
 
         if (res.status >= 400) {
-            throw new Error('Server Error');
+            throw new BaseError('Blog Posts Loader', data.code, data.message);
         }
 
         return data;
     } catch (error) {
-        return Promise.reject(error);
+        return Promise.reject({
+            error: {
+                message: error.message,
+                code: error.httpCode,
+            },
+        });
     }
 };
 

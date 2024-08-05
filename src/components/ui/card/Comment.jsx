@@ -33,23 +33,22 @@ export default function CommentCard({ comment }) {
 
                             <div className="comment__body">{comment.body}</div>
 
-                            <div className="comment__delete">
-                                {isAuth &&
-                                    (() => {
-                                        if (
-                                            author._id === user._id &&
-                                            !comment.isDeleted
-                                        ) {
-                                            return (
+                            {isAuth &&
+                                (() => {
+                                    if (
+                                        author._id === user._id &&
+                                        !comment.isDeleted
+                                    ) {
+                                        return (
+                                            <div className="comment__delete">
                                                 <Form
                                                     action=""
                                                     method="POST"
                                                     onSubmit={() => {
-                                                        console.log(42);
                                                         setStatus('submitting');
                                                     }}
                                                 >
-                                                    <Fieldset fieldName="delete__comment">
+                                                    <Fieldset fieldName="delete__field">
                                                         <Input
                                                             type="hidden"
                                                             name="form-id"
@@ -67,7 +66,6 @@ export default function CommentCard({ comment }) {
                                                         <Button
                                                             type="submit"
                                                             size="medium"
-                                                            // onClick={deleteComment}
                                                             disabled={
                                                                 status ===
                                                                 'submitting'
@@ -77,10 +75,10 @@ export default function CommentCard({ comment }) {
                                                         </Button>
                                                     </Fieldset>
                                                 </Form>
-                                            );
-                                        }
-                                    })()}
-                            </div>
+                                            </div>
+                                        );
+                                    }
+                                })()}
                         </div>
                     );
                 }
