@@ -44,79 +44,84 @@ export default function Login() {
     useAuthData(error, user, token, setUser);
 
     return (
-        <div className="form__container">
-            {error &&
-                (() => {
-                    const { messages } = error;
-                    const noFieldErrors =
-                        !fieldNameIncludes(formConstants.EMAIL, messages) &&
-                        !fieldNameIncludes(formConstants.PWD, messages) &&
-                        error;
-                    if (noFieldErrors) {
-                        return (
-                            <div className="error__container">
-                                <ErrorMessage message={messages} />
-                            </div>
+        <section>
+            <div className="form__container">
+                <h1>Login</h1>
+                {error &&
+                    (() => {
+                        const { messages } = error;
+                        const fields = ['email', 'password'];
+                        const fieldErrors = fields.map((field) =>
+                            fieldNameIncludes(field, messages)
                         );
-                    }
-                    return [formConstants.EMAIL, formConstants.PWD].map(
-                        (fName) => (
+                        const noFieldErrors =
+                            !fieldErrors.includes(true) && error;
+
+                        if (noFieldErrors) {
+                            return (
+                                <div className="error__container">
+                                    <ErrorMessage message={messages} />
+                                </div>
+                            );
+                        }
+
+                        return fields.map((fName) => (
                             <FieldErrorMessage
                                 key={fName}
                                 fieldName={fName}
                                 error={error}
                             />
-                        )
-                    );
-                })()}
+                        ));
+                    })()}
 
-            <Form action="/login" method="POST" onSubmit={handleSubmit}>
-                <Fieldset fieldName={formConstants.EMAIL}>
-                    <Label theme={theme} name="Email:">
-                        <Input
-                            theme={theme}
-                            type={formConstants.EMAIL}
-                            name={formConstants.EMAIL}
-                            value={formInputs.email}
-                            onChange={(e) => {
-                                const { name } = e.target;
-                                setFormInputs((prev) => ({
-                                    ...prev,
-                                    [name]: e.target.value,
-                                }));
-                            }}
-                        />
-                    </Label>
-                </Fieldset>
+                <Form action="/login" method="POST" onSubmit={handleSubmit}>
+                    <Fieldset fieldName={formConstants.EMAIL}>
+                        <Label theme={theme} name="Email:">
+                            <Input
+                                theme={theme}
+                                type={formConstants.EMAIL}
+                                name={formConstants.EMAIL}
+                                value={formInputs.email}
+                                onChange={(e) => {
+                                    const { name } = e.target;
+                                    setFormInputs((prev) => ({
+                                        ...prev,
+                                        [name]: e.target.value,
+                                    }));
+                                }}
+                            />
+                        </Label>
+                    </Fieldset>
 
-                <Fieldset fieldName="password__field">
-                    <Label theme={theme} name="Password:">
-                        <Input
-                            theme={theme}
-                            type={formConstants.PWD}
-                            name={formConstants.PWD}
-                            value={formInputs.password}
-                            onChange={(e) => {
-                                const { name } = e.target;
-                                setFormInputs((prev) => ({
-                                    ...prev,
-                                    [name]: e.target.value,
-                                }));
-                            }}
-                        />
-                    </Label>
-                </Fieldset>
+                    <Fieldset fieldName="password__field">
+                        <Label theme={theme} name="Password:">
+                            <Input
+                                theme={theme}
+                                type={formConstants.PWD}
+                                name={formConstants.PWD}
+                                value={formInputs.password}
+                                onChange={(e) => {
+                                    const { name } = e.target;
+                                    setFormInputs((prev) => ({
+                                        ...prev,
+                                        [name]: e.target.value,
+                                    }));
+                                }}
+                            />
+                        </Label>
+                    </Fieldset>
 
-                <Fieldset fieldName="button__field">
-                    <Button
-                        type="submit"
-                        size="medium"
-                        disabled={isButtonDisabled}
-                    >
-                        Login
-                    </Button>
-                </Fieldset>
-            </Form>
-        </div>
+                    <Fieldset fieldName="button__field">
+                        <Button
+                            type="submit"
+                            size="medium"
+                            disabled={isButtonDisabled}
+                        >
+                            Login
+                        </Button>
+                    </Fieldset>
+                </Form>
+            </div>
+        </section>
     );
 }
