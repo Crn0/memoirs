@@ -49,15 +49,14 @@ export default function SignUp() {
         setStatus('error');
     };
 
-    const value = (fieldName) => inputs[fieldName];
+    const inputValue = (fieldName) => inputs[fieldName];
 
     const onChange = (e) => {
-        const fieldName = e.target.name;
-        const value = e.target.value;
+        const { value, name } = e.target;
 
         dispatch({
             value,
-            type: fieldName,
+            type: name,
         });
     };
 
@@ -87,6 +86,8 @@ export default function SignUp() {
                             />
                         );
                     }
+
+                    return null;
                 })}
             </div>
             <Form action="/sign-up" method="POST" onSubmit={handleSubmit}>
@@ -95,7 +96,7 @@ export default function SignUp() {
                         <Input
                             type="text"
                             name="firstName"
-                            value={value('firstName')}
+                            value={inputValue('firstName')}
                             onChange={onChange}
                         />
                     </Label>
@@ -104,7 +105,7 @@ export default function SignUp() {
                         <Input
                             type="text"
                             name="lastName"
-                            value={value('lastName')}
+                            value={inputValue('lastName')}
                             onChange={onChange}
                         />
                     </Label>
@@ -115,7 +116,7 @@ export default function SignUp() {
                         <Input
                             type="email"
                             name="email"
-                            value={value('email')}
+                            value={inputValue('email')}
                             onChange={onChange}
                         />
                     </Label>
@@ -124,7 +125,7 @@ export default function SignUp() {
                         <Input
                             type="text"
                             name="username"
-                            value={value('username')}
+                            value={inputValue('username')}
                             onChange={onChange}
                         />
                     </Label>
@@ -135,7 +136,7 @@ export default function SignUp() {
                         <Input
                             type="password"
                             name="password"
-                            value={value('password')}
+                            value={inputValue('password')}
                             onChange={onChange}
                         />
                     </Label>
@@ -144,7 +145,7 @@ export default function SignUp() {
                         <Input
                             type="password"
                             name="confirm_password"
-                            value={value('confirm_password')}
+                            value={inputValue('confirm_password')}
                             onChange={onChange}
                         />
                     </Label>

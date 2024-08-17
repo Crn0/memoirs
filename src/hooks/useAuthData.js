@@ -7,7 +7,7 @@ export default function useAuthData(error, user, token, setUser) {
 
     useEffect(() => {
         if (localStorage.has('token')) {
-            const { from } = location.state || { from: { pathname: '/' } };
+            const { from } = { from: { pathname: '/' } };
 
             return navigate(from, { replace: true });
         }
@@ -18,5 +18,7 @@ export default function useAuthData(error, user, token, setUser) {
 
             return navigate('/', { replace: true });
         }
+
+        return () => {};
     }, [error, user, token, setUser, navigate]);
 }

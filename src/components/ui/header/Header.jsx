@@ -24,14 +24,14 @@ export default function Header({ children }) {
                     <Button
                         type="button"
                         className={theme}
-                        size={'small'}
+                        size="small"
                         name={theme}
                         onClick={() => {
                             setTheme((mode) =>
                                 mode === 'light' ? 'dark' : 'light'
                             );
                         }}
-                        testId={'theme-switcher'}
+                        testId="theme-switcher"
                     >
                         <ThemeIcon />
                     </Button>

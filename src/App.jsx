@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Outlet, useLoaderData } from 'react-router-dom';
 import ThemeContext from './context/themeContext';
 import UserContextContext from './context/userContext';
@@ -9,21 +9,21 @@ function App() {
     const userData = useLoaderData();
     const [user, setUser] = useState(userData?.user || null);
     const [theme, setTheme] = useState('dark');
+    const themeMemo = useMemo(() => ({ theme, setTheme }), [theme, setTheme]);
+    const userMemo = useMemo(() => ({ user, setUser }), [user, setUser]);
 
     return (
-        <>
-            <ThemeContext.Provider value={{ theme, setTheme }}>
-                <UserContextContext.Provider value={{ user, setUser }}>
-                    <Header />
+        <ThemeContext.Provider value={themeMemo}>
+            <UserContextContext.Provider value={userMemo}>
+                <Header />
 
-                    <main className={`${theme}`}>
-                        <Outlet />
-                    </main>
+                <main className={`${theme}`}>
+                    <Outlet />
+                </main>
 
-                    <Footer />
-                </UserContextContext.Provider>
-            </ThemeContext.Provider>
-        </>
+                <Footer />
+            </UserContextContext.Provider>
+        </ThemeContext.Provider>
     );
 }
 

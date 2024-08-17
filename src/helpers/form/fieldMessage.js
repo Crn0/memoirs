@@ -1,5 +1,5 @@
 const fieldMessage = (name, messages) => {
-    const error = messages?.filter?.((error) => error.field === name);
+    const error = messages?.filter?.((err) => err.field === name);
     return error[0]?.message;
 };
 

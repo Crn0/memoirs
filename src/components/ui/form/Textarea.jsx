@@ -21,7 +21,7 @@ export default function Textarea({ name, value, cols, rows, onChange }) {
 
 Textarea.propTypes = {
     name: PropTypes.string.isRequired,
-    value: PropTypes.any.isRequired,
+    value: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     cols: PropTypes.number.isRequired,
     rows: PropTypes.number.isRequired,

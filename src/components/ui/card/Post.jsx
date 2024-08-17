@@ -10,27 +10,27 @@ export default function PostCard({ post }) {
     const { firstName } = post.author;
     const { lastName } = post.author;
     const date = DateTime.fromISO(post?.createdAt).toFormat('LLL dd');
-
+    
     return (
-        <div className={`post__card`}>
+        <div className="post__card">
             {hasCover && (
-                <div className={`post__cover`}>
+                <div className="post__cover">
                     <img
                         src={post.cover.url}
-                        alt={`Cover photo of ${post.title}`}
+                        alt={`Cover of ${post.title}`}
                     />
                 </div>
             )}
 
-            <div className={`post__body`}>
-                <div className={`post__top`}>
-                    <div className={`post__author`}>
+            <div className="post__body">
+                <div className="post__top">
+                    <div className="post__author">
                         <p>{`${firstName} ${lastName}`}</p>
                         <time>{date}</time>
                     </div>
                 </div>
 
-                <div className={`post__bottom`}>
+                <div className="post__bottom">
                     <Link url={`/posts/${post._id}`} theme={theme}>
                         <p>{post.title}</p>
                     </Link>
@@ -41,5 +41,24 @@ export default function PostCard({ post }) {
 }
 
 PostCard.propTypes = {
-    post: PropTypes.object.isRequired,
+    post: PropTypes.shape({
+        author: PropTypes.shape({
+            firstName: PropTypes.string.isRequired,
+            lastName: PropTypes.string.isRequired,
+            username: PropTypes.string.isRequired,
+            _id: PropTypes.string.isRequired,
+
+        }).isRequired,
+        title: PropTypes.string.isRequired,
+        body: PropTypes.string.isRequired,
+        cover: PropTypes.shape({
+            url: PropTypes.string.isRequired,
+            cloudinary_id: PropTypes.string.isRequired,
+        }).isRequired,
+        createdAt: PropTypes.string.isRequired,
+        isPrivate: PropTypes.bool.isRequired,
+        // eslint-disable-next-line react/forbid-prop-types
+        updatedAt: PropTypes.string.isRequired,
+        _id: PropTypes.string.isRequired,
+    }).isRequired,
 };

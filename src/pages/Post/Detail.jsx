@@ -15,7 +15,7 @@ export default function PostDetail() {
     const { theme } = useContext(ThemeContext);
     const { user } = useContext(UserContext);
 
-    const isAuth = user ? true : false;
+    const isAuth = !!user;
     const cover = post?.cover;
     const hasCover = post?.cover?.url !== '';
     const imageUrl = cover?.url;
@@ -39,11 +39,13 @@ export default function PostDetail() {
                                     <img
                                         className="post__cover"
                                         src={`${imageUrl}`}
-                                        alt={`Cover image of ${title}`}
+                                        alt={`Cover of ${title}`}
                                     />
                                 </div>
                             );
                         }
+
+                        return null;
                     })()}
                     <div className="meta__container">
                         <div className="post__meta">
@@ -60,6 +62,7 @@ export default function PostDetail() {
 
                 <div
                     className="post__body"
+                    // eslint-disable-next-line react/no-danger
                     dangerouslySetInnerHTML={cleanHTML}
                 />
             </div>
@@ -77,20 +80,19 @@ export default function PostDetail() {
                                     <CommentForm
                                         cols={0}
                                         rows={2}
-                                        btnSize={'medium'}
+                                        btnSize="medium"
                                     >
                                         <Input
                                             type="hidden"
                                             name="form-id"
-                                            value={'ADD_COMMENT'}
+                                            value="ADD_COMMENT"
                                         />
                                     </CommentForm>
                                 );
                             }
 
                             return (
-                                <>
-                                    <p>
+                                <p>
                                         <Link url="/login" theme={theme}>
                                             Login
                                         </Link>{' '}
@@ -100,7 +102,6 @@ export default function PostDetail() {
                                         </Link>{' '}
                                         to post an comment
                                     </p>
-                                </>
                             );
                         })()}
                     </div>
@@ -113,6 +114,8 @@ export default function PostDetail() {
                                 <Comment key={comment._id} comment={comment} />
                             ));
                         }
+
+                        return <p>There are no comments</p>
                     })()}
                 </div>
             </div>

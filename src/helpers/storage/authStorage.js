@@ -4,14 +4,14 @@ const AuthStorage = (title) => {
     const add = (key, value) => {
         storage.set(key, value);
     };
+    
+    const has = (key) => storage.has(key);
 
     const get = (key) => {
         if (!has(key)) return null;
 
         return storage.get(key);
     };
-
-    const has = (key) => storage.has(key);
 
     const remove = (key) => {
         storage.delete(key);

@@ -59,19 +59,17 @@ export default function Login() {
                                 <ErrorMessage message={messages} />
                             </div>
                         );
-                    } else {
+                    } 
                         return [formConstants.EMAIL, formConstants.PWD].map(
-                            (fName) => {
-                                return (
+                            (fName) => (
                                     <FieldErrorMessage
                                         key={fName}
                                         fieldName={fName}
                                         error={error}
                                     />
-                                );
-                            }
+                                )
                         );
-                    }
+                    
                 })()}
 
             <Form action="/login" method="POST" onSubmit={handleSubmit}>
@@ -113,8 +111,8 @@ export default function Login() {
 
                 <Fieldset fieldName="button__field">
                     <Button
-                        type={'submit'}
-                        size={'medium'}
+                        type="submit"
+                        size="medium"
                         disabled={isButtonDisabled}
                     >
                         Login

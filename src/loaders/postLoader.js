@@ -21,12 +21,7 @@ const getPosts = async () => {
 
         return data;
     } catch (error) {
-        return Promise.reject({
-            error: {
-                message: error.message,
-                code: error.httpCode,
-            },
-        });
+        return Promise.reject(new BaseError(error.name, error.httpCode, error.message))
     }
 };
 

@@ -6,6 +6,7 @@ export default function Label({ name, children }) {
     const { theme } = useContext(ThemeContext);
 
     return (
+        // eslint-disable-next-line jsx-a11y/label-has-associated-control
         <label className={`${theme}`}>
             <span>{name}</span>
             {children}

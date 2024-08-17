@@ -4,42 +4,42 @@ const reducer = (state, action) => {
     const { type, value } = action;
 
     switch (type) {
-        case formConstants['FIRST_NAME']: {
+        case formConstants.FIRST_NAME: {
             return {
                 ...state,
                 [type]: value,
             };
         }
 
-        case formConstants['LAST_NAME']: {
+        case formConstants.LAST_NAME: {
             return {
                 ...state,
                 [type]: value,
             };
         }
 
-        case formConstants['EMAIL']: {
+        case formConstants.EMAIL: {
             return {
                 ...state,
                 [type]: value,
             };
         }
 
-        case formConstants['USERNAME']: {
+        case formConstants.USERNAME: {
             return {
                 ...state,
                 [type]: value,
             };
         }
 
-        case formConstants['PWD']: {
+        case formConstants.PWD: {
             return {
                 ...state,
                 [type]: value,
             };
         }
 
-        case formConstants['CONFIRM_PWD']: {
+        case formConstants.CONFIRM_PWD: {
             return {
                 ...state,
                 [type]: value,

@@ -16,7 +16,7 @@ export default function CommentCard({ comment }) {
     const date = DateTime.fromISO(comment?.created_at).toFormat('LLL dd');
     const isAuth = !!user;
     const author = comment?.author;
-    console.log(comment)
+    
     return (
         <>
             {(() => {
