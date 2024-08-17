@@ -4,6 +4,7 @@ import ThemeContext from './context/themeContext';
 import UserContextContext from './context/userContext';
 import Header from './components/ui/header';
 import Footer from './components/ui/footer/Footer';
+import style from './index.module.css';
 
 function App() {
     const userData = useLoaderData();
@@ -13,9 +14,10 @@ function App() {
     const userMemo = useMemo(() => ({ user, setUser }), [user, setUser]);
 
     return (
+        <div className={`${style.app} ${theme === 'dark' ? style.dark : style.light}`}>
         <ThemeContext.Provider value={themeMemo}>
             <UserContextContext.Provider value={userMemo}>
-                <Header />
+                <Header setTheme={setTheme} />
 
                 <main className={`${theme}`}>
                     <Outlet />
@@ -24,6 +26,7 @@ function App() {
                 <Footer />
             </UserContextContext.Provider>
         </ThemeContext.Provider>
+    </div>
     );
 }
 
