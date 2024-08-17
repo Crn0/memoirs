@@ -4,8 +4,8 @@ import NavBar from '../nav/Nav';
 function HeaderApp() {
     return (
         <Header>
-                <NavBar />
-            </Header>
+            <NavBar />
+        </Header>
     );
 }
 

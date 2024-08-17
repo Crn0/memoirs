@@ -76,7 +76,7 @@ export default function Profile() {
                     );
                 }
 
-                return <Navigate to="/" replace/>;
+                return <Navigate to="/" replace />;
             })()}
         </>
     );

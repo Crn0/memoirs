@@ -47,8 +47,8 @@ const mockSignUpAction = vi.fn(async ({ request }) => {
       },
       {
         field: "password",
-        message: "username must not contain special characters"
-      }
+        message: "username must not contain special characters",
+      },
     ],
   };
 
@@ -76,7 +76,9 @@ const mockSignUpAction = vi.fn(async ({ request }) => {
     };
   }
   // https://regexr.com/83re3
-  if (/^[{a-zA-Z}]{1,}\d{0,}[{a-zA-Z}]{0,}$/g.test(submission.username ) === false) {
+  if (
+    /^[{a-zA-Z}]{1,}\d{0,}[{a-zA-Z}]{0,}$/g.test(submission.username) === false
+  ) {
     return {
       error: {
         messages: [errors.messages[3]],
@@ -209,7 +211,9 @@ describe("Sign-up form page", () => {
     await user.type(screen.getByLabelText("Confirm password:"), "1234");
     await user.click(screen.getByRole("button", { name: "Sign Up" }));
 
-    expect(screen.getByText(/username must not contain special characters/)).toBeInTheDocument();
+    expect(
+      screen.getByText(/username must not contain special characters/),
+    ).toBeInTheDocument();
   });
 
   it("renders an error message if the password are not the same", async () => {

@@ -4,7 +4,7 @@ const AuthStorage = (title) => {
     const add = (key, value) => {
         storage.set(key, value);
     };
-    
+
     const has = (key) => storage.has(key);
 
     const get = (key) => {

@@ -10,15 +10,12 @@ export default function PostCard({ post }) {
     const { firstName } = post.author;
     const { lastName } = post.author;
     const date = DateTime.fromISO(post?.createdAt).toFormat('LLL dd');
-    
+
     return (
         <div className="post__card">
             {hasCover && (
                 <div className="post__cover">
-                    <img
-                        src={post.cover.url}
-                        alt={`Cover of ${post.title}`}
-                    />
+                    <img src={post.cover.url} alt={`Cover of ${post.title}`} />
                 </div>
             )}
 
@@ -47,7 +44,6 @@ PostCard.propTypes = {
             lastName: PropTypes.string.isRequired,
             username: PropTypes.string.isRequired,
             _id: PropTypes.string.isRequired,
-
         }).isRequired,
         title: PropTypes.string.isRequired,
         body: PropTypes.string.isRequired,

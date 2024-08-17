@@ -5,14 +5,13 @@ import ThemeContext from '../../context/themeContext';
 import UserContext from '../../context/userContext';
 import Form from '../../components/ui/form/Form';
 import Fieldset from '../../components/ui/form/Fieldset';
-import Label from '..//../components/ui/form/Label';
+import Label from '../../components/ui/form/Label';
 import Input from '../../components/ui/form/Input';
 import Button from '../../components/ui/button/Button';
 import formConstants from '../../constants/form';
 import ErrorMessage from '../../components/errors/errorMessage';
 import fieldNameIncludes from '../../helpers/form/fieldnameIncludes';
 import FieldErrorMessage from '../../components/ui/form/FieldErrorMessage';
-import isEmail from '../../helpers/validator/isEmail';
 
 const formState = {
     email: '',
@@ -59,17 +58,16 @@ export default function Login() {
                                 <ErrorMessage message={messages} />
                             </div>
                         );
-                    } 
-                        return [formConstants.EMAIL, formConstants.PWD].map(
-                            (fName) => (
-                                    <FieldErrorMessage
-                                        key={fName}
-                                        fieldName={fName}
-                                        error={error}
-                                    />
-                                )
-                        );
-                    
+                    }
+                    return [formConstants.EMAIL, formConstants.PWD].map(
+                        (fName) => (
+                            <FieldErrorMessage
+                                key={fName}
+                                fieldName={fName}
+                                error={error}
+                            />
+                        )
+                    );
                 })()}
 
             <Form action="/login" method="POST" onSubmit={handleSubmit}>

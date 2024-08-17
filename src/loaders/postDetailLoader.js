@@ -23,7 +23,9 @@ const getPost = async (params) => {
 
         return data;
     } catch (error) {
-        return Promise.reject(new BaseError(error.name, error.httpCode, error.message));
+        return Promise.reject(
+            new BaseError(error.name, error.httpCode, error.message)
+        );
     }
 };
 

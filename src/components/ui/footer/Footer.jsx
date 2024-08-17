@@ -10,7 +10,7 @@ export default function Footer() {
             Crn0
             <a
                 href="https://github.com/Crn0/memoirs"
-                aria-label='link'
+                aria-label="link"
                 target="_blank"
                 rel="noopener noreferrer"
             >

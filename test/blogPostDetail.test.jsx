@@ -154,9 +154,7 @@ describe("Blog post detail page", () => {
 
     await waitFor(() => {
       expect(screen.queryByTestId("spinner")).not.toBeInTheDocument();
-      expect(
-        screen.getByAltText("Cover of test data"),
-      ).toBeInTheDocument();
+      expect(screen.getByAltText("Cover of test data")).toBeInTheDocument();
       expect(screen.getByText("John Doe")).toBeInTheDocument();
       expect(screen.getByText("Posted on Jul 26")).toBeInTheDocument();
       expect(screen.getByText("test data")).toBeInTheDocument();
@@ -167,7 +165,7 @@ describe("Blog post detail page", () => {
   it("renders an error message on a unsuccessful fetch(e.g. status code 404)", async () => {
     mockLoader.mockImplementation(() => {
       const error = new Promise((res, rej) => {
-        rej({message: "post not found", code: 404});
+        rej({ message: "post not found", code: 404 });
       });
 
       return defer({ data: error });

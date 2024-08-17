@@ -93,15 +93,15 @@ export default function PostDetail() {
 
                             return (
                                 <p>
-                                        <Link url="/login" theme={theme}>
-                                            Login
-                                        </Link>{' '}
-                                        or{' '}
-                                        <Link url="/sign-up" theme={theme}>
-                                            Sign-up
-                                        </Link>{' '}
-                                        to post an comment
-                                    </p>
+                                    <Link url="/login" theme={theme}>
+                                        Login
+                                    </Link>{' '}
+                                    or{' '}
+                                    <Link url="/sign-up" theme={theme}>
+                                        Sign-up
+                                    </Link>{' '}
+                                    to post an comment
+                                </p>
                             );
                         })()}
                     </div>
@@ -115,7 +115,7 @@ export default function PostDetail() {
                             ));
                         }
 
-                        return <p>There are no comments</p>
+                        return <p>There are no comments</p>;
                     })()}
                 </div>
             </div>

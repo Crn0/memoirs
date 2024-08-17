@@ -16,70 +16,70 @@ export default function CommentCard({ comment }) {
     const date = DateTime.fromISO(comment?.created_at).toFormat('LLL dd');
     const isAuth = !!user;
     const author = comment?.author;
-    
+
     return (
         <>
             {(() => {
                 if (comment.isDeleted) return null;
 
-                return  <div className={`${theme} comment__detail`}>
-                <div className="comment__header">
-                    <p>
-                        {`${author.firstName} ${author.lastName}`}
-                    </p>
+                return (
+                    <div className={`${theme} comment__detail`}>
+                        <div className="comment__header">
+                            <p>{`${author.firstName} ${author.lastName}`}</p>
 
-                    <p>{date}</p>
-                </div>
+                            <p>{date}</p>
+                        </div>
 
-                <div className="comment__body">{comment.body}</div>
+                        <div className="comment__body">{comment.body}</div>
 
-                {isAuth &&
-                    (() => {
-                        if (
-                            author._id === user._id &&
-                            !comment.isDeleted
-                        ) {
-                            return (
-                                <div className="comment__delete">
-                                    <Form
-                                        action=""
-                                        method="POST"
-                                        onSubmit={() => {
-                                            setStatus('submitting');
-                                        }}
-                                    >
-                                        <Fieldset fieldName="delete__field">
-                                            <Input
-                                                type="hidden"
-                                                name="form-id"
-                                                value="DELETE_COMMENT"
-                                            />
-
-                                            <Input
-                                                type="hidden"
-                                                name="comment-id"
-                                                value={`${comment._id}`}
-                                            />
-
-                                            <Button
-                                                type="submit"
-                                                size="medium"
-                                                disabled={
-                                                    status ===
-                                                    'submitting'
-                                                }
+                        {isAuth &&
+                            (() => {
+                                if (
+                                    author._id === user._id &&
+                                    !comment.isDeleted
+                                ) {
+                                    return (
+                                        <div className="comment__delete">
+                                            <Form
+                                                action=""
+                                                method="POST"
+                                                onSubmit={() => {
+                                                    setStatus('submitting');
+                                                }}
                                             >
-                                                Delete
-                                            </Button>
-                                        </Fieldset>
-                                    </Form>
-                                </div>
-                            );
-                        }
+                                                <Fieldset fieldName="delete__field">
+                                                    <Input
+                                                        type="hidden"
+                                                        name="form-id"
+                                                        value="DELETE_COMMENT"
+                                                    />
 
-                        return null
-                    })()}
-            </div>
+                                                    <Input
+                                                        type="hidden"
+                                                        name="comment-id"
+                                                        value={`${comment._id}`}
+                                                    />
+
+                                                    <Button
+                                                        type="submit"
+                                                        size="medium"
+                                                        disabled={
+                                                            status ===
+                                                            'submitting'
+                                                        }
+                                                    >
+                                                        Delete
+                                                    </Button>
+                                                </Fieldset>
+                                            </Form>
+                                        </div>
+                                    );
+                                }
+
+                                return null;
+                            })()}
+                    </div>
+                );
             })()}
         </>
     );
@@ -92,7 +92,6 @@ CommentCard.propTypes = {
             lastName: PropTypes.string.isRequired,
             username: PropTypes.string.isRequired,
             _id: PropTypes.string.isRequired,
-
         }).isRequired,
         body: PropTypes.string.isRequired,
         created_at: PropTypes.string.isRequired,
@@ -101,7 +100,7 @@ CommentCard.propTypes = {
         likes: PropTypes.shape({
             // eslint-disable-next-line react/forbid-prop-types
             user: PropTypes.arrayOf(PropTypes.object),
-            likes: PropTypes.number
+            likes: PropTypes.number,
         }).isRequired,
         post: PropTypes.string.isRequired,
         // eslint-disable-next-line react/forbid-prop-types
