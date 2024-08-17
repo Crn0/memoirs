@@ -14,7 +14,9 @@ export default function Posts() {
     return (
         <Suspense fallback={<Spinner message="Fetching blog posts...." />}>
             <Await resolve={data} errorElement={<PostError />}>
-                <PostLists />
+                <section>
+                    <PostLists />
+                </section>
             </Await>
         </Suspense>
     );

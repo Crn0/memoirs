@@ -10,7 +10,9 @@ export default function PostDetail() {
     return (
         <Suspense fallback={<Spinner message="Fetching blog post...." />}>
             <Await resolve={data} errorElement={<PostError />}>
-                <Detail />
+                <section>
+                    <Detail />
+                </section>
             </Await>
         </Suspense>
     );
