@@ -14,19 +14,21 @@ function App() {
     const userMemo = useMemo(() => ({ user, setUser }), [user, setUser]);
 
     return (
-        <div className={`${style.app} ${theme === 'dark' ? style.dark : style.light}`}>
-        <ThemeContext.Provider value={themeMemo}>
-            <UserContextContext.Provider value={userMemo}>
-                <Header setTheme={setTheme} />
+        <div
+            className={`${style.app} ${theme === 'dark' ? style.dark : style.light}`}
+        >
+            <ThemeContext.Provider value={themeMemo}>
+                <UserContextContext.Provider value={userMemo}>
+                    <Header setTheme={setTheme} />
 
-                <main className={`${theme}`}>
-                    <Outlet />
-                </main>
+                    <main className={`${theme}`}>
+                        <Outlet />
+                    </main>
 
-                <Footer />
-            </UserContextContext.Provider>
-        </ThemeContext.Provider>
-    </div>
+                    <Footer />
+                </UserContextContext.Provider>
+            </ThemeContext.Provider>
+        </div>
     );
 }
 
