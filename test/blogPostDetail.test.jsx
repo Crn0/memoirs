@@ -155,7 +155,7 @@ describe("Blog post detail page", () => {
     await waitFor(() => {
       expect(screen.queryByTestId("spinner")).not.toBeInTheDocument();
       expect(
-        screen.getByAltText("Cover image of test data"),
+        screen.getByAltText("Cover of test data"),
       ).toBeInTheDocument();
       expect(screen.getByText("John Doe")).toBeInTheDocument();
       expect(screen.getByText("Posted on Jul 26")).toBeInTheDocument();
