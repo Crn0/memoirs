@@ -1,29 +1,32 @@
 /* eslint-disable no-unused-vars */
-import { useContext, useReducer } from 'react';
+import { useContext, useReducer, useState } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import { DateTime } from 'luxon';
 import UserContext from '../../context/userContext';
-import Form from '../../components/ui/form/Form';
-import FieldSet from '../../components/ui/form/Fieldset';
-import Label from '../../components/ui/form/Label';
-import Input from '../../components/ui/form/Input';
+import ThemeContext from '../../context/themeContext';
+import EditForm from './EditForm';
 import Button from '../../components/ui/button/Button';
 import reducer from './reducer';
+import style from './css/index.module.css';
 
 export default function Profile() {
     const { user } = useContext(UserContext);
+    const { theme } = useContext(ThemeContext);
     const { userId } = useParams();
-    const [state, dispatch] = useReducer(reducer, {
+    const [edit, setEdit] = useState(false);
+
+    const [formData, dispatch] = useReducer(reducer, {
         firstName: user?.firstName,
         lastName: user?.lastName,
-        email: user?.email,
         username: user?.username,
+        email: user?.email,
     });
-
-    const fullName = `${state?.firstName} ${state?.lastName}`;
-    const userName = `${state?.username}`;
-    const email = `${state?.email}`;
+    const fullName = `${user?.firstName} ${user?.lastName}`;
+    const userName = `${user?.username}`;
+    const email = `${user?.email}`;
     const date = DateTime.fromISO(user?.createdAt).toFormat('LLL dd yyyy');
+
+    const onClick = () => setEdit((isEdit) => !isEdit);
 
     return (
         <>
@@ -32,38 +35,60 @@ export default function Profile() {
                     return (
                         <>
                             <section>
-                                <div className="note">
-                                    <p>
-                                        note: some features are not yet
-                                        implemented
-                                    </p>
-                                </div>
+                                {/* <div className='note'>
+                                    <p>note: some features are not yet implemented</p>
+                                </div> */}
 
-                                <div className="profile">
+                                <div
+                                    className={`${style.profile} ${theme === 'dark' ? style.dark : ''}`}
+                                >
                                     <div className="profile__actions">
                                         <Button
                                             type="button"
                                             size="medium"
+                                            onClick={onClick}
                                             disabled={false}
                                         >
-                                            Edit profile
+                                            {(() => {
+                                                if (!edit)
+                                                    return 'Edit profile';
+
+                                                return 'Cancel';
+                                            })()}
                                         </Button>
                                     </div>
 
                                     <div className="profile__details">
-                                        <div className="profile__top">
-                                            <h1>
-                                                {`${fullName} (${userName})`}
-                                            </h1>
-                                        </div>
+                                        {(() => {
+                                            if (edit) {
+                                                return (
+                                                    <div>
+                                                        <EditForm
+                                                            formData={formData}
+                                                            dispatch={dispatch}
+                                                            setEdit={setEdit}
+                                                        />
+                                                    </div>
+                                                );
+                                            }
 
-                                        <div className="profile__middle">
-                                            <p> {email} </p>
-                                        </div>
-
-                                        <div className="profile__bottom">
-                                            <p> {`Joined on ${date}`}</p>
-                                        </div>
+                                            return (
+                                                <>
+                                                    <div className="profile__top">
+                                                        <h1>{`${fullName} (${userName})`}</h1>
+                                                    </div>
+                                                    <div className="profile__middle">
+                                                        <p> {email} </p>
+                                                    </div>
+                                                    <div className="profile__bottom">
+                                                        <p>
+                                                            {' '}
+                                                            {`Joined on ${date}`}
+                                                        </p>
+                                                    </div>
+                                                </>
+                                            );
+                                        })()}
                                     </div>
                                 </div>
                             </section>
