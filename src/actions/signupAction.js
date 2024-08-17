@@ -1,4 +1,3 @@
-import { json } from 'react-router-dom';
 import { URL } from '../constants/env';
 import FormError from '../helpers/errors/formError';
 
@@ -30,7 +29,7 @@ const action = async ({ request }) => {
                 ...m,
                 message: m.message.toLowerCase(),
             }));
-            console.log(lowerCaseMessages);
+
             throw new FormError(data.message, lowerCaseMessages, data.code);
         }
 
