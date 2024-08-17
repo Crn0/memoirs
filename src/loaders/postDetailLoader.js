@@ -24,10 +24,8 @@ const getPost = async (params) => {
         return data;
     } catch (error) {
         return Promise.reject({
-            error: {
-                message: error.message,
-                code: error.httpCode,
-            },
+            message: error.message,
+            httpCode: error.httpCode,
         });
     }
 };

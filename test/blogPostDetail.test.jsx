@@ -167,12 +167,7 @@ describe("Blog post detail page", () => {
   it("renders an error message on a unsuccessful fetch(e.g. status code 404)", async () => {
     mockLoader.mockImplementation(() => {
       const error = new Promise((res, rej) => {
-        rej({
-          error: {
-            message: "post not found",
-            code: 404,
-          },
-        });
+        rej({message: "post not found", code: 404});
       });
 
       return defer({ data: error });
