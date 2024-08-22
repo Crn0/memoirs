@@ -117,7 +117,7 @@ export default function EditForm({ formData, dispatch, setEdit }) {
                 method="PUT"
             >
                 <Fieldset fieldName="fullName_field">
-                    <Label name="fullName:">
+                    <Label name="Full name:">
                         <Input
                             type="text"
                             name="firstName"
@@ -126,7 +126,7 @@ export default function EditForm({ formData, dispatch, setEdit }) {
                         />
                     </Label>
 
-                    <Label name="lastName:">
+                    <Label name="Last name:">
                         <Input
                             type="text"
                             name="lastName"
