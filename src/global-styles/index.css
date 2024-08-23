@@ -8,7 +8,3 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-#root {
-  min-height: 100dvh;
-  display: grid;
-}

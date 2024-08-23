@@ -7,6 +7,8 @@ import Form from '../form/Form';
 import Fieldset from '../form/Fieldset';
 import Input from '../form/Input';
 import Button from '../button/Button';
+import currentTheme from '../../../helpers/theme/currentTheme';
+import style from './css/comment.module.css';
 
 export default function CommentCard({ comment }) {
     const { theme } = useContext(ThemeContext);
@@ -17,20 +19,23 @@ export default function CommentCard({ comment }) {
     const isAuth = !!user;
     const author = comment?.author;
 
+    const currBoxShadow = currentTheme(theme);
+
     return (
         <>
             {(() => {
                 if (comment.isDeleted) return null;
-
                 return (
-                    <div className={`${theme} comment__detail`}>
-                        <div className="comment__header">
-                            <p>{`${author.firstName} ${author.lastName}`}</p>
-
-                            <p>{date}</p>
-                        </div>
-
-                        <div className="comment__body">{comment.body}</div>
+                    <details className={`${currBoxShadow(style['comment--light'],style['comment--dark'])}`} open>
+                        <summary>
+                            <span className={`${style.bold}`}>
+                                {`${author.firstName} ${author.lastName}`}{' '}
+                                •
+                                {' '}
+                                <span className={`${style['opacity--05']}`}>{date}</span>
+                            </span>
+                        </summary>
+                        <div className={`${style.comment__body}`}><p>{comment.body}</p></div>
 
                         {isAuth &&
                             (() => {
@@ -39,8 +44,9 @@ export default function CommentCard({ comment }) {
                                     !comment.isDeleted
                                 ) {
                                     return (
-                                        <div className="comment__delete">
+                                        <div className={`${style.comment__delete}`}>
                                             <Form
+                                                customStyle={`${style.form}`}
                                                 action=""
                                                 method="POST"
                                                 onSubmit={() => {
@@ -62,7 +68,8 @@ export default function CommentCard({ comment }) {
 
                                                     <Button
                                                         type="submit"
-                                                        size="medium"
+                                                        customStyle={`${style.button}`}
+                                                        size="xxs"
                                                         disabled={
                                                             status ===
                                                             'submitting'
@@ -78,7 +85,7 @@ export default function CommentCard({ comment }) {
 
                                 return null;
                             })()}
-                    </div>
+                    </details>
                 );
             })()}
         </>

@@ -1,0 +1,35 @@
+:root {
+    --font-light-color: var(--pure-dark);
+    --font-dark-color: var(--white);
+}
+
+.posts {
+    /* display: grid; */
+    /* place-content: center;
+    place-items: center; */
+    /* grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); */
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    gap: 1rem
+}
+
+.center {
+    display: grid;
+    padding-left: center;
+    place-items: center;
+}
+
+.font--dark {
+    color: var(--font-dark-color);
+}
+
+.font--light {
+    color: var(--font-light-color);
+}
+
+@media (max-width: 768px) {
+    .posts.w-100 {
+        width: 100%;
+    }
+}

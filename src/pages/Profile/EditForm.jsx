@@ -13,6 +13,7 @@ import FieldErrorMessage from '../../components/ui/form/FieldErrorMessage';
 import FormError from '../../helpers/errors/formError';
 import { URL } from '../../constants/env';
 import LocalStorage from '../../helpers/storage/localStorage';
+import style from './css/form.module.css';
 
 export default function EditForm({ formData, dispatch, setEdit }) {
     const { setUser } = useContext(UserContext);
@@ -81,7 +82,51 @@ export default function EditForm({ formData, dispatch, setEdit }) {
     };
 
     return (
-        <>
+        <Form action="" isReactForm={false} onSubmit={onSubmit} method="PUT">
+            <Fieldset fieldName="fullName_field">
+                <Label name="Full name:">
+                    <Input
+                        customStyle={`${style.block}`}
+                        type="text"
+                        name="firstName"
+                        value={formData.firstName}
+                        onChange={onChange}
+                    />
+                </Label>
+
+                <Label name="Last name:">
+                    <Input
+                        customStyle={`${style.block}`}
+                        type="text"
+                        name="lastName"
+                        value={formData.lastName}
+                        onChange={onChange}
+                    />
+                </Label>
+            </Fieldset>
+
+            <Fieldset fieldName="email__username_field">
+                <Label name="Username:">
+                    <Input
+                        customStyle={`${style.block}`}
+                        type="text"
+                        name="username"
+                        value={formData.username}
+                        onChange={onChange}
+                    />
+                </Label>
+
+                <Label name="Email:">
+                    <Input
+                        customStyle={`${style.block}`}
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={onChange}
+                    />
+                </Label>
+            </Fieldset>
+
             {error &&
                 (() => {
                     const { messages } = error;
@@ -95,7 +140,10 @@ export default function EditForm({ formData, dispatch, setEdit }) {
                     if (noFieldErrors) {
                         return (
                             <div className="error__container">
-                                <ErrorMessage message={messages} />
+                                <ErrorMessage
+                                    customStyle={`${style.error}`}
+                                    message={messages}
+                                />
                             </div>
                         );
                     }
@@ -103,6 +151,7 @@ export default function EditForm({ formData, dispatch, setEdit }) {
                     return ['firstName', 'lastName', 'username', 'email'].map(
                         (fName) => (
                             <FieldErrorMessage
+                                customStyle={`${style.error}`}
                                 key={fName}
                                 fieldName={fName}
                                 error={error}
@@ -110,65 +159,20 @@ export default function EditForm({ formData, dispatch, setEdit }) {
                         )
                     );
                 })()}
-            <Form
-                action=""
-                isReactForm={false}
-                onSubmit={onSubmit}
-                method="PUT"
-            >
-                <Fieldset fieldName="fullName_field">
-                    <Label name="Full name:">
-                        <Input
-                            type="text"
-                            name="firstName"
-                            value={formData.firstName}
-                            onChange={onChange}
-                        />
-                    </Label>
 
-                    <Label name="Last name:">
-                        <Input
-                            type="text"
-                            name="lastName"
-                            value={formData.lastName}
-                            onChange={onChange}
-                        />
-                    </Label>
-                </Fieldset>
-
-                <Fieldset fieldName="email__username_field">
-                    <Label name="Username:">
-                        <Input
-                            type="text"
-                            name="username"
-                            value={formData.username}
-                            onChange={onChange}
-                        />
-                    </Label>
-
-                    <Label name="Email:">
-                        <Input
-                            type="email"
-                            name="email"
-                            value={formData.email}
-                            onChange={onChange}
-                        />
-                    </Label>
-                </Fieldset>
-
-                <Fieldset fieldName="button__field">
-                    <Input type="hidden" name="form-id" value="PROFILE_EDIT" />
-                    <Button
-                        type="submit"
-                        size="medium"
-                        isLoading={status === 'submitting'}
-                        disabled={isButtonDisabled}
-                    >
-                        Submit
-                    </Button>
-                </Fieldset>
-            </Form>
-        </>
+            <Fieldset fieldName="button__field">
+                <Input type="hidden" name="form-id" value="PROFILE_EDIT" />
+                <Button
+                    customStyle={`${style.button}`}
+                    type="submit"
+                    size="medium"
+                    isLoading={status === 'submitting'}
+                    disabled={isButtonDisabled}
+                >
+                    Submit
+                </Button>
+            </Fieldset>
+        </Form>
     );
 }
 

@@ -11,6 +11,7 @@ import Input from '../../components/ui/form/Input';
 import Button from '../../components/ui/button/Button';
 import FieldErrorMessage from '../../components/ui/form/FieldErrorMessage';
 import isEmail from '../../helpers/validator/isEmail';
+import style from './css/index.module.css';
 
 export default function SignUp() {
     const { theme } = useContext(ThemeContext);
@@ -22,7 +23,7 @@ export default function SignUp() {
     const user = signUpData?.user;
     const token = signUpData?.token;
 
-    const disableButton = (() => {
+    const isButtonDisabled = (() => {
         const fieldNames = [
             'firstName',
             'lastName',
@@ -69,33 +70,15 @@ export default function SignUp() {
     return (
         <section>
             <div className={`${theme} form__container`}>
-                <h1>Sign Up</h1>
-                <div className="error__container">
-                    {[
-                        'firstName',
-                        'lastName',
-                        'email',
-                        'username',
-                        'password',
-                        'confirm_password',
-                    ].map((fName) => {
-                        if (error) {
-                            return (
-                                <FieldErrorMessage
-                                    key={fName}
-                                    fieldName={fName}
-                                    error={error}
-                                />
-                            );
-                        }
-
-                        return null;
-                    })}
-                </div>
                 <Form action="/sign-up" method="POST" onSubmit={handleSubmit}>
+                    <div>
+                        <h1>Sign Up</h1>
+                    </div>
                     <Fieldset fieldName="fullname__field">
                         <Label name="First name:">
                             <Input
+                                size={`${style['input--medium']}`}
+                                customStyle={`${style.block}`}
                                 type="text"
                                 name="firstName"
                                 value={inputValue('firstName')}
@@ -105,6 +88,8 @@ export default function SignUp() {
 
                         <Label name="Last name:">
                             <Input
+                                size={`${style['input--medium']}`}
+                                customStyle={`${style.block}`}
                                 type="text"
                                 name="lastName"
                                 value={inputValue('lastName')}
@@ -116,6 +101,8 @@ export default function SignUp() {
                     <Fieldset fieldName="email_username__field">
                         <Label name="Email:">
                             <Input
+                                size={`${style['input--medium']}`}
+                                customStyle={`${style.block}`}
                                 type="email"
                                 name="email"
                                 value={inputValue('email')}
@@ -125,6 +112,8 @@ export default function SignUp() {
 
                         <Label name="Username:">
                             <Input
+                                size={`${style['input--medium']}`}
+                                customStyle={`${style.block}`}
                                 type="text"
                                 name="username"
                                 value={inputValue('username')}
@@ -136,6 +125,8 @@ export default function SignUp() {
                     <Fieldset fieldName="password__field">
                         <Label name="Password:">
                             <Input
+                                size={`${style['input--medium']}`}
+                                customStyle={`${style.block}`}
                                 type="password"
                                 name="password"
                                 value={inputValue('password')}
@@ -145,6 +136,8 @@ export default function SignUp() {
 
                         <Label name="Confirm password:">
                             <Input
+                                size={`${style['input--medium']}`}
+                                customStyle={`${style.block}`}
                                 type="password"
                                 name="confirm_password"
                                 value={inputValue('confirm_password')}
@@ -153,11 +146,34 @@ export default function SignUp() {
                         </Label>
                     </Fieldset>
 
+                    {error &&
+                        (() => (
+                            <div className={`${style.center}`}>
+                                {[
+                                    'firstName',
+                                    'lastName',
+                                    'email',
+                                    'username',
+                                    'password',
+                                    'confirm_password',
+                                ].map((fName) => (
+                                    <FieldErrorMessage
+                                        customStyle={`${style.error}`}
+                                        key={fName}
+                                        fieldName={fName}
+                                        error={error}
+                                    />
+                                ))}
+                            </div>
+                        ))()}
+
                     <Fieldset fieldName="button__field">
                         <Button
                             type="submit"
-                            size="medium"
-                            disabled={disableButton}
+                            size="lg"
+                            disabled={isButtonDisabled}
+                            isLoading={status === 'submitting'}
+                            customStyle={style.button}
                         >
                             Sign Up
                         </Button>

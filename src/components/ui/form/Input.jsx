@@ -3,12 +3,19 @@ import { useContext } from 'react';
 import ThemeContext from '../../../context/themeContext';
 import './css/input.module.css';
 
-export default function Input({ type, name, value, onChange }) {
+export default function Input({
+    type,
+    name,
+    value,
+    onChange,
+    size = '',
+    customStyle = '',
+}) {
     const { theme } = useContext(ThemeContext);
 
     return (
         <input
-            className={`${theme}`}
+            className={`${theme} ${size} ${customStyle}`}
             type={type}
             name={name}
             value={value}
@@ -27,4 +34,6 @@ Input.propTypes = {
         PropTypes.number,
     ]).isRequired,
     onChange: PropTypes.func,
+    size: PropTypes.string,
+    customStyle: PropTypes.string,
 };

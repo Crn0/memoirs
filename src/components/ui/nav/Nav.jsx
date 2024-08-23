@@ -4,6 +4,7 @@ import Link from '../link/Link';
 import ThemeContext from '../../../context/themeContext';
 import UserContext from '../../../context/userContext';
 import Button from '../button/Button';
+import style from './css/nav.module.css';
 
 export default function NavBar() {
     const { theme } = useContext(ThemeContext);
@@ -25,45 +26,72 @@ export default function NavBar() {
         navigate('/', { replace: true });
     };
 
+    const currentTheme = (light, dark) => {
+        if (theme === 'dark') return dark;
+
+        return light;
+    };
+
     return (
-        <div className={`${theme}`}>
+        <>
             {(() => {
                 if (user) {
                     return (
                         <>
-                            <Link
-                                url={`users/${userId}/${username}`}
-                                className={theme}
-                            >
-                                {' '}
-                                Profile{' '}
-                            </Link>
+                            <div className={`${style.center}`}>
+                                <Link
+                                    url={`users/${userId}/${username}`}
+                                    customStyle={`${style.link} ${currentTheme(style['link--light'], style['link--dark'])}`}
+                                    className={theme}
+                                >
+                                    {' '}
+                                    Profile{' '}
+                                </Link>
+                            </div>
 
-                            <Button
-                                type="button"
-                                size="small"
-                                uncontrolled={false}
-                                onClick={handleLogout}
-                            >
-                                Logout
-                            </Button>
+                            <div className={`${style.center}`}>
+                                <Button
+                                    type="button"
+                                    size="small"
+                                    uncontrolled={false}
+                                    onClick={handleLogout}
+                                    customStyle={`${style.link} ${currentTheme(style['link--light'], style['link--dark'])}`}
+                                >
+                                    Logout
+                                </Button>
+                            </div>
                         </>
                     );
                 }
 
                 return (
                     <>
+                        {['Sign-up', 'Login'].map((val) => (
+                            <div key={val} className={`${style.center}`}>
+                                <Link
+                                    url={val.toLowerCase()}
+                                    theme={theme}
+                                    customStyle={`${style.link} ${currentTheme(style['link--light'], style['link--dark'])}`}
+                                >
+                                    {val}
+                                </Link>
+                            </div>
+                        ))}
+                        {/* <div className={`${style.center} ${currentTheme(style['link-light'], 'link-dark')}`}>
                         <Link url="sign-up" className={theme}>
                             {' '}
                             Sign-up{' '}
                         </Link>
-                        <Link url="login" className={theme}>
+                        </div>
+                        <div className={`${style.center} `}>
+                        <Link url="login" className={theme} customStyle={`${currentTheme(style['link--light'], style[style['link--dark']])}`}>
                             {' '}
                             Login{' '}
                         </Link>
+                        </div> */}
                     </>
                 );
             })()}
-        </div>
+        </>
     );
 }
