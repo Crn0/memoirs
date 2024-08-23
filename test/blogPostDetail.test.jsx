@@ -28,15 +28,16 @@ const add = (formData) => {
     },
     body: formData.get("body"),
     created_at: "2024-07-27T10:21:02.011Z",
+    updatedAt: "2024-07-27T10:21:02.011Z",
     isDeleted: false,
     isReply: false,
     likes: {
       users: [],
       count: 0,
     },
-    post: 42,
+    post: "42",
     replies: [],
-    _id: 3,
+    _id: "3",
   };
   const { comments } = mockData.COMMENTS;
 
@@ -46,7 +47,7 @@ const add = (formData) => {
 };
 
 const destroy = (formData) => {
-  const commentId = Number(formData.get("comment-id"));
+  const commentId = formData.get("comment-id");
   const { comments } = mockData.COMMENTS;
 
   mockData.COMMENTS.comments = comments.filter(
