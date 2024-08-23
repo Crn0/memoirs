@@ -84,7 +84,7 @@ export default function EditForm({ formData, dispatch, setEdit }) {
     return (
         <Form action="" isReactForm={false} onSubmit={onSubmit} method="PUT">
             <Fieldset fieldName="fullName_field">
-                <Label name="Full name:">
+                <Label name="First name:">
                     <Input
                         customStyle={`${style.block}`}
                         type="text"
