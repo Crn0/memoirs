@@ -9,7 +9,7 @@ import Login from '../pages/Login';
 import loaders from '../loaders/index';
 import actions from '../actions';
 
-const Router = () => {
+function Router() {
     const router = createBrowserRouter([
         {
             path: '/',
@@ -29,6 +29,7 @@ const Router = () => {
                 },
                 {
                     path: 'posts/:postId',
+                    shouldRevalidate: false,
                     loader: loaders.postDetailLoader,
                     action: actions.commentAction,
                     element: <PostDetail />,
@@ -52,6 +53,6 @@ const Router = () => {
     ]);
 
     return <RouterProvider router={router} />;
-};
+}
 
 export default Router;
