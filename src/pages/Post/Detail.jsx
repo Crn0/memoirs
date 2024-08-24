@@ -1,5 +1,5 @@
-import { useContext } from 'react';
-import { useAsyncValue } from 'react-router-dom';
+import { useContext, useState } from 'react';
+import {  useAsyncValue } from 'react-router-dom';
 import { DateTime } from 'luxon';
 import ThemeContext from '../../context/themeContext';
 import UserContext from '../../context/userContext';
@@ -12,26 +12,39 @@ import style from './css/postDetail.module.css';
 import currentTheme from '../../helpers/theme/currentTheme';
 
 export default function PostDetail() {
-    const { post, comments } = useAsyncValue();
-
+    const asyncData = useAsyncValue();
     const { theme } = useContext(ThemeContext);
     const { user } = useContext(UserContext);
+    const [commentsById, setCommentsById] = useState(() => asyncData.post.comments.reduce((_, obj) => {
+            const map = { ..._ };
+            map[obj._id] = obj;
+            return map;
+        }, {}));
+
+
+    const commentsId = asyncData.post.comments.reduce((_, obj) => {
+        if (obj.isReply) {
+            return _;
+        }
+
+        return [..._, obj._id];
+    }, []);
 
     const isAuth = !!user;
+
+    const { post } = asyncData;
     const cover = post?.cover;
     const hasCover = post?.cover?.url !== '';
     const imageUrl = cover?.url;
     const author = post?.author;
     const title = post?.title;
-    const commentCount = comments.filter(
-        (comment) => comment.isDeleted === false
-    ).length;
+    const commentCount = asyncData.post.comments.length;
 
     const date = DateTime.fromISO(post?.createdAt).toFormat('LLL dd');
     const cleanHTML = purifyHTML(post?.body);
 
     const currTheme = currentTheme(theme);
-    
+
     return (
         <>
             {(() => {
@@ -104,7 +117,8 @@ export default function PostDetail() {
                                         <CommentForm
                                             cols={50}
                                             rows={5}
-                                            btnSize="medium"
+                                            btnSize="lg"
+                                            setCommentsById={setCommentsById}
                                         >
                                             <Input
                                                 type="hidden"
@@ -133,16 +147,23 @@ export default function PostDetail() {
 
                     <div className="comments__list">
                         {(() => {
-                            if (comments?.length) {
-                                return comments?.map((comment) => (
+                            if (commentsId?.length) {
+                                return commentsId?.map((id) => (
                                     <Comment
-                                        key={comment._id}
-                                        comment={comment}
+                                        key={`${id} ${post.comments.length}`}
+                                        id={id}
+                                        commentsId={null}
+                                        commentsById={commentsById}
+                                        setCommentsById={setCommentsById}
                                     />
                                 ));
                             }
 
-                            return <p style={{textAlign: 'center'}}>There are no comments</p>;
+                            return (
+                                <p style={{ textAlign: 'center' }}>
+                                    There are no comments
+                                </p>
+                            );
                         })()}
                     </div>
                 </div>

@@ -29,7 +29,6 @@ function Router() {
                 },
                 {
                     path: 'posts/:postId',
-                    shouldRevalidate: false,
                     loader: loaders.postDetailLoader,
                     action: actions.commentAction,
                     element: <PostDetail />,

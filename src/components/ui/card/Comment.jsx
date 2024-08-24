@@ -1,8 +1,10 @@
-import { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useContext, useEffect, useMemo, useState } from 'react';
+import { useActionData } from 'react-router-dom';
 import { DateTime } from 'luxon';
 import ThemeContext from '../../../context/themeContext';
 import UserContext from '../../../context/userContext';
+import ReplyForm from '../form/ReplyForm';
 import Form from '../form/Form';
 import Fieldset from '../form/Fieldset';
 import Input from '../form/Input';
@@ -10,11 +12,24 @@ import Button from '../button/Button';
 import currentTheme from '../../../helpers/theme/currentTheme';
 import style from './css/comment.module.css';
 
-export default function CommentCard({ comment }) {
+export default function Comment({ id, commentsById, setCommentsById }) {
+    const data = useActionData()
     const { theme } = useContext(ThemeContext);
     const { user } = useContext(UserContext);
     const [status, setStatus] = useState('idle');
+    const [reply, setReply] = useState(false);
+    const deleteId = useMemo(() => data?.commentId, [data?.commentId]);
 
+    useEffect(() => {
+        if (deleteId) {
+            setCommentsById(prev => ({...prev, [deleteId]: {
+                ...prev[deleteId],
+                isDeleted: true,
+            }}))
+        }
+    }, [deleteId, setCommentsById])
+
+    const comment = commentsById[id];
     const date = DateTime.fromISO(comment?.created_at).toFormat('LLL dd');
     const isAuth = !!user;
     const author = comment?.author;
@@ -24,28 +39,77 @@ export default function CommentCard({ comment }) {
     return (
         <>
             {(() => {
-                if (comment.isDeleted) return null;
+                if (commentsById[id] === undefined) return null;
                 return (
-                    <details className={`${currBoxShadow(style['comment--light'],style['comment--dark'])}`} open>
-                        <summary>
-                            <span className={`${style.bold}`}>
-                                {`${author.firstName} ${author.lastName}`}{' '}
-                                •
-                                {' '}
-                                <span className={`${style['opacity--05']}`}>{date}</span>
-                            </span>
-                        </summary>
-                        <div className={`${style.comment__body}`}><p>{comment.body}</p></div>
+                    <ul>
+                        <details
+                            className={`${currBoxShadow(style['comment--light'], style['comment--dark'])}`}
+                            open
+                        >
+                            <summary>
+                                {(() => {
+                                    if (comment?.isDeleted)
+                                        return <span>DELETED</span>;
 
-                        {isAuth &&
-                            (() => {
-                                if (
-                                    author._id === user._id &&
-                                    !comment.isDeleted
-                                ) {
                                     return (
-                                        <div className={`${style.comment__delete}`}>
-                                            <Form
+                                        <span className={`${style.bold}`}>
+                                            {`${author?.firstName} ${author?.lastName}`}{' '}
+                                            •{' '}
+                                            <span
+                                                className={`${style['opacity--05']}`}
+                                            >
+                                                {date}
+                                            </span>
+                                        </span>
+                                    );
+                                })()}
+                            </summary>
+
+                            {!comment?.isDeleted && (
+                                <div className={`${style.comment__body}`}>
+                                    <p>{comment.body}</p>
+                                </div>
+                            )}
+
+                            <li>
+                                {comment?.replies?.length > 0 &&
+                                    comment.replies.map((r) => (
+                                        <Comment
+                                            key={r}
+                                            id={r}
+                                            parentId={id}
+                                            commentsById={commentsById}
+                                            setCommentsById={setCommentsById}
+                                        />
+                                    ))}
+                            </li>
+
+                            {isAuth &&
+                                (() => {
+                                    
+                                    if (reply)
+                                        return (
+                                            <ReplyForm
+                                                cols={50}
+                                                rows={5}
+                                                id={id}
+                                                btnSize="xxs"
+                                                btnStyle={`${style.button} ${style['button--reply']}`}
+                                                setReply={setReply}
+                                                setCommentsById={setCommentsById}
+                                             />
+                                        );
+
+                                    return (
+                                        <div
+                                            className={`${style.comment__btn}`}
+                                        >
+                                            {
+                                                (() => {
+                                                    if ( author?._id !== user?._id || comment?.isDeleted) return null
+
+                                                    return (
+                                                        <Form
                                                 customStyle={`${style.form}`}
                                                 action=""
                                                 method="POST"
@@ -63,12 +127,12 @@ export default function CommentCard({ comment }) {
                                                     <Input
                                                         type="hidden"
                                                         name="comment-id"
-                                                        value={`${comment._id}`}
+                                                        value={`${comment?._id}`}
                                                     />
 
                                                     <Button
                                                         type="submit"
-                                                        customStyle={`${style.button}`}
+                                                        customStyle={`${style.button}, ${style['button--delete']}`}
                                                         size="xxs"
                                                         disabled={
                                                             status ===
@@ -79,40 +143,65 @@ export default function CommentCard({ comment }) {
                                                     </Button>
                                                 </Fieldset>
                                             </Form>
+                                                    );
+                                                })()
+                                            }
+                                            
+
+                                            {
+                                                (() => {
+                                                    if (comment?.isDeleted) return null;
+
+                                                    return (
+                                                        <Button
+                                                        type="button"
+                                                        customStyle={`${style.button}, ${style['button--reply']}`}
+                                                        size="xxs"
+                                                        onClick={() =>
+                                                            setReply(true)
+                                                        }
+                                                    >
+                                                        Reply
+                                                    </Button>
+                                                    );
+                                                })()
+                                            }
                                         </div>
                                     );
-                                }
-
-                                return null;
-                            })()}
-                    </details>
+                                })()}
+                        </details>
+                    </ul>
                 );
             })()}
         </>
     );
 }
 
-CommentCard.propTypes = {
-    comment: PropTypes.shape({
-        author: PropTypes.shape({
-            firstName: PropTypes.string.isRequired,
-            lastName: PropTypes.string.isRequired,
-            username: PropTypes.string.isRequired,
-            _id: PropTypes.string.isRequired,
-        }).isRequired,
-        body: PropTypes.string.isRequired,
-        created_at: PropTypes.string.isRequired,
-        isDeleted: PropTypes.bool.isRequired,
-        isReply: PropTypes.bool.isRequired,
-        likes: PropTypes.shape({
+Comment.propTypes = {
+    id: PropTypes.string.isRequired,
+    commentsById: PropTypes.objectOf(
+        PropTypes.shape({
+            author: PropTypes.shape({
+                firstName: PropTypes.string.isRequired,
+                lastName: PropTypes.string.isRequired,
+                username: PropTypes.string.isRequired,
+                _id: PropTypes.string.isRequired,
+            }).isRequired,
+            body: PropTypes.string.isRequired,
+            created_at: PropTypes.string.isRequired,
+            isDeleted: PropTypes.bool.isRequired,
+            isReply: PropTypes.bool.isRequired,
+            likes: PropTypes.shape({
+                // eslint-disable-next-line react/forbid-prop-types
+                user: PropTypes.arrayOf(PropTypes.object),
+                likes: PropTypes.number,
+            }).isRequired,
+            post: PropTypes.string.isRequired,
             // eslint-disable-next-line react/forbid-prop-types
-            user: PropTypes.arrayOf(PropTypes.object),
-            likes: PropTypes.number,
-        }).isRequired,
-        post: PropTypes.string.isRequired,
-        // eslint-disable-next-line react/forbid-prop-types
-        replies: PropTypes.array.isRequired,
-        updatedAt: PropTypes.string.isRequired,
-        _id: PropTypes.string.isRequired,
-    }).isRequired,
+            replies: PropTypes.array.isRequired,
+            updatedAt: PropTypes.string.isRequired,
+            _id: PropTypes.string.isRequired,
+        })
+    ).isRequired,
+    setCommentsById: PropTypes.func.isRequired,
 };

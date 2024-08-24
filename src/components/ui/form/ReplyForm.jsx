@@ -6,16 +6,25 @@ import Form from './Form';
 import Fieldset from './Fieldset';
 import Textarea from './Textarea';
 import Button from '../button/Button';
-import style from './css/commentForm.module.css';
+import style from './css/replyForm.module.css';
 import fieldNameIncludes from '../../../helpers/form/fieldnameIncludes';
 import ErrorMessage from '../../errors/errorMessage';
 import FieldErrorMessage from './FieldErrorMessage';
+import Input from './Input';
 
-export default function CommentForm({ cols, rows, btnSize, setCommentsById, children }) {
+export default function ReplyForm({
+    cols,
+    rows,
+    btnSize,
+    id,
+    setReply,
+    setCommentsById,
+    btnStyle = ''
+}) {
+    const data = useActionData();
+    const reply = useMemo(() => data?.comment,[data?.comment]);
     const [status, setStatus] = useState('typing');
     const [value, setValue] = useState('');
-    const data = useActionData();
-    const comment = useMemo(() => data?.comment, [data?.comment]);
     
     const error = data?.error;
 
@@ -25,14 +34,23 @@ export default function CommentForm({ cols, rows, btnSize, setCommentsById, chil
 
     useEffect(() => {
         if (status === 'submitting') {
-            setStatus('typing');
-            setValue('');
+            setStatus('typing')
+            setValue('')
         };
 
-        if (comment) {
-            setCommentsById(prev => ({...prev, [comment._id]: comment}));
+        if (reply) {
+            setCommentsById(prev => ({
+                    ...prev,
+                    [id]: {
+                        ...prev[id],
+                        replies: [
+                            ...prev[id].replies,
+                            reply._id,
+                        ]
+                    }
+                }))
         }
-    }, [status, comment, setCommentsById]);
+    }, [status, id, reply, setCommentsById]);
 
     return (
         <Form action="" method="POST" onSubmit={handleSubmit}>
@@ -44,11 +62,21 @@ export default function CommentForm({ cols, rows, btnSize, setCommentsById, chil
                     value={value}
                     onChange={(e) => setValue(e.target.value)}
                 />
+                 <Input
+                                                    type="hidden"
+                                                    name="comment-id"
+                                                    value={`${id}`}
+                                                />
+                                                <Input
+                                                    type="hidden"
+                                                    name="form-id"
+                                                    value="REPLY_COMMENT"
+                                                />
             </Fieldset>
 
             {(() => {
                 if (!error) return null;
-                if (error?.formId !== 'ADD_COMMENT') return null;
+                if (error?.formId !== 'REPLY_COMMENT') return null;
 
                 const { messages } = error;
                 const fields = ['body'];
@@ -77,7 +105,7 @@ export default function CommentForm({ cols, rows, btnSize, setCommentsById, chil
                 ));
             })()}
 
-            <Fieldset fieldName="button__field">
+            <Fieldset fieldName={`${style.button__field}`}>
                 <Button
                     customStyle={`${style.button}`}
                     type="submit"
@@ -86,19 +114,27 @@ export default function CommentForm({ cols, rows, btnSize, setCommentsById, chil
                 >
                     Submit
                 </Button>
-                {children}
+
+                <Button
+                    customStyle={`${btnStyle}`} 
+                    type="button"
+                    size={btnSize}
+                    onClick={() => setReply(false)}
+                >
+                    Cancel
+                </Button>
+                                           
             </Fieldset>
         </Form>
     );
 }
 
-CommentForm.propTypes = {
+ReplyForm.propTypes = {
     cols: PropTypes.number.isRequired,
     rows: PropTypes.number.isRequired,
     btnSize: PropTypes.string.isRequired,
-    children: PropTypes.oneOfType([
-        PropTypes.arrayOf(PropTypes.element),
-        PropTypes.element,
-    ]),
+    id: PropTypes.string.isRequired,
+    setReply: PropTypes.func.isRequired,
+    btnStyle: PropTypes.string,
     setCommentsById: PropTypes.func.isRequired,
 };

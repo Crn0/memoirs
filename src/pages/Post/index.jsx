@@ -9,7 +9,7 @@ export default function PostDetail() {
     const { data } = useLoaderData();
 
     return (
-        <Suspense fallback={<Spinner customStyle={`${style.spinner}`}/>}>
+        <Suspense fallback={<Spinner customStyle={`${style.spinner}`} />}>
             <Await resolve={data} errorElement={<PostError />}>
                 <section>
                     <Detail />
