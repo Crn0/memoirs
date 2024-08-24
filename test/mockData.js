@@ -72,6 +72,28 @@ const POSTS = {
       isPrivate: false,
       updatedAt: "2024-07-27T07:34:08.774Z",
       tags: [],
+      comments: [
+        {
+          author: {
+            firstName: "Jane",
+            lastName: "Doe",
+            username: "jaDoe",
+            _id: "1",
+          },
+          body: "Test comment 01",
+          created_at: "2024-07-27T10:21:02.011Z",
+          updatedAt: "2024-07-27T10:21:02.011Z",
+          isDeleted: false,
+          isReply: false,
+          likes: {
+            users: [],
+            count: 0,
+          },
+          post: "42",
+          replies: [],
+          _id: "2",
+        },
+      ],
     },
   ],
 };
