@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import {  useAsyncValue } from 'react-router-dom';
 import { DateTime } from 'luxon';
 import ThemeContext from '../../context/themeContext';
@@ -10,6 +10,7 @@ import Comment from '../../components/ui/card/Comment';
 import Link from '../../components/ui/link/Link';
 import style from './css/postDetail.module.css';
 import currentTheme from '../../helpers/theme/currentTheme';
+import localStorage from '../../helpers/storage/localStorage';
 
 export default function PostDetail() {
     const asyncData = useAsyncValue();
@@ -21,13 +22,12 @@ export default function PostDetail() {
             return map;
         }, {}));
 
-
-    const commentsId = asyncData.post.comments.reduce((_, obj) => {
-        if (obj.isReply) {
+    const commentsId = Object.entries(commentsById).reduce((_, obj) => {
+        if (obj[1].isReply) {
             return _;
         }
 
-        return [..._, obj._id];
+        return [..._, obj[1]._id];
     }, []);
 
     const isAuth = !!user;
@@ -44,6 +44,10 @@ export default function PostDetail() {
     const cleanHTML = purifyHTML(post?.body);
 
     const currTheme = currentTheme(theme);
+
+    useEffect(() => () => {
+            localStorage.remove('post')
+        }, []);
 
     return (
         <>
