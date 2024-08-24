@@ -17,7 +17,7 @@ const setup = (router) => {
   };
 };
 
-const add = (formData) => {
+const add = async (formData) => {
   const mockUser = mockData.USERS.users[1].user;
   const mockComment = {
     author: {
@@ -40,26 +40,29 @@ const add = (formData) => {
     _id: "3",
   };
 
-  comments.push(mockComment);
+  mockData.POSTS.posts[0].comments.push(mockComment);
 
-  return comments;
+  return {
+    comment: mockData.POSTS.posts[0].comments[mockData.POSTS.posts[0].comments.length-1]
+  };
 };
 
 const destroy = (formData) => {
   const commentId = formData.get("comment-id");
 
-  mockData.COMMENTS.comments = comments.filter(
+  mockData.POSTS.posts[0].comments = mockData.POSTS.posts[0].comments.filter(
     (comment) => comment._id !== commentId,
   );
 
-  return {};
+
+  return { commentId };
 };
 
 async function action({ request }) {
   try {
     const formData = await request.formData();
     const formId = formData.get("form-id");
-
+    
     switch (formId) {
       case "ADD_COMMENT":
         return add(formData, request);
@@ -214,7 +217,7 @@ describe("Blog post detail page", () => {
       const post = new Promise((res, _) => {
 
         res({
-          post: mockData.POSTS.posts[0],
+          post: {...mockData.POSTS.posts[0]},
         });
       });
 
