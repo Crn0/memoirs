@@ -4,6 +4,10 @@ import localStorage from '../helpers/storage/localStorage';
 import BaseError from '../helpers/errors/baseError';
 
 const getPost = async (params) => {
+    if (localStorage.has('post')) {
+        return localStorage.get('post')
+    }
+
     try {
         const { postId } = params;
 
@@ -20,6 +24,8 @@ const getPost = async (params) => {
         if (res.status >= 400) {
             throw new BaseError('Blog Post Loader', data.code, data.message);
         }
+
+        localStorage.add('post', JSON.stringify(data));
 
         return data;
     } catch (error) {
