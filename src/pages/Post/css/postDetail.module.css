@@ -21,6 +21,14 @@
     --link-light-color: var(--pure-dark); */
 }
 
+.font--bold__700 {
+    font-weight: 700;
+}
+
+.opacity--08 {
+    opacity: 0.8;
+}
+
 .wrapper {
     display: flex;
     flex-direction: column;

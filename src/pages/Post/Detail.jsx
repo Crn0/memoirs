@@ -73,9 +73,9 @@ export default function PostDetail() {
                     <div className="post__header">
                         <div className="meta__container">
                             <div className="post__meta">
-                                <p>{`${author?.firstName} ${author?.lastName}`}</p>
+                                <p className={`${style['font--bold__700']}`}>{`${author?.firstName} ${author?.lastName}`}</p>
 
-                                <p>{`Posted on ${date}`}</p>
+                                <p className={`${style['opacity--08']}`}>{`Posted on ${date}`}</p>
                             </div>
 
                             <div className="post__title">
