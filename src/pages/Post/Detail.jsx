@@ -56,7 +56,7 @@ export default function PostDetail() {
                     return (
                         <div className={`${style.post__cover} `}>
                             <img
-                                className={`${style['cover--image']} ${style['w-90']}`}
+                                className={`${style['cover--image']} ${style['w-100']}`}
                                 src={`${imageUrl}`}
                                 alt={`Cover of ${title}`}
                             />
