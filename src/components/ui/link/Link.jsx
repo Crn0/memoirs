@@ -1,10 +1,10 @@
 import { Link as RouterLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import './css/link.module.css';
+import style from './css/link.module.css';
 
 export default function Link({ url, children, customStyle = '' }) {
     return (
-        <RouterLink to={url} className={`${customStyle}`}>
+        <RouterLink to={url} className={`${style.a} ${customStyle}`}>
             {children}
         </RouterLink>
     );
