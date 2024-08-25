@@ -4,6 +4,7 @@
 }
 
 .app {
+    display: grid;
     min-height: 100dvh;
     max-width: 100dvw;
 }
