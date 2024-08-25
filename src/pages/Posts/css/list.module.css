@@ -4,14 +4,11 @@
 }
 
 .posts {
-    /* display: grid; */
-    /* place-content: center;
-    place-items: center; */
-    /* grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); */
     display: flex;
     flex-direction: column;
     width: 50%;
-    gap: 1rem
+    gap: 1rem;
+    margin-bottom: 3rem;
 }
 
 .center {
