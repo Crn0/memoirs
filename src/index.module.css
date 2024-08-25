@@ -11,7 +11,7 @@
 
 .main {
     display: grid;
-    grid: 0.01fr 0.01fr /auto;
+    grid: 0.1fr 0.1fr /auto;
 }
   
 .dark {
