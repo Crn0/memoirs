@@ -44,6 +44,7 @@
     display: grid;
     place-content: center;
     gap: 2rem;
+    width: 100%;
     max-width: 50%;
     padding: 2rem;
 }
