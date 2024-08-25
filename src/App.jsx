@@ -4,12 +4,13 @@ import ThemeContext from './context/themeContext';
 import UserContextContext from './context/userContext';
 import Header from './components/ui/header';
 import Footer from './components/ui/footer/Footer';
+import localStorage from './helpers/storage/localStorage';
 import style from './index.module.css';
 
 function App() {
     const userData = useLoaderData();
     const [user, setUser] = useState(userData?.user || null);
-    const [theme, setTheme] = useState('dark');
+    const [theme, setTheme] = useState(localStorage.get('theme') || 'dark');
     const themeMemo = useMemo(() => ({ theme, setTheme }), [theme, setTheme]);
     const userMemo = useMemo(() => ({ user, setUser }), [user, setUser]);
 

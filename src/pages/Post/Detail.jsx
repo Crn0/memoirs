@@ -38,7 +38,7 @@ export default function PostDetail() {
     const imageUrl = cover?.url;
     const author = post?.author;
     const title = post?.title;
-    const commentCount = asyncData.post.comments.length;
+    const commentCount = Object.keys(commentsById).length;
 
     const date = DateTime.fromISO(post?.createdAt).toFormat('LLL dd');
     const cleanHTML = purifyHTML(post?.body);

@@ -4,8 +4,9 @@ import ThemeContext from '../../../context/themeContext';
 import Button from '../button/Button';
 import Link from '../link/Link';
 import ThemeIcon from '../icon/Theme';
-import style from './css/header.module.css';
 import currentTheme from '../../../helpers/theme/currentTheme';
+import localStorage from '../../../helpers/storage/localStorage';
+import style from './css/header.module.css';
 
 export default function Header({ children }) {
     const { theme, setTheme } = useContext(ThemeContext);
@@ -41,6 +42,7 @@ export default function Header({ children }) {
                             setTheme((mode) =>
                                 mode === 'light' ? 'dark' : 'light'
                             );
+                            localStorage.add('theme', theme === 'light' ? 'dark' : 'light');
                         }}
                         customStyle={`${style.header__btn}`}
                         testId="theme-switcher"

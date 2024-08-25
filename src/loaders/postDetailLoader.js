@@ -1,18 +1,18 @@
 import { defer } from 'react-router-dom';
 import { URL } from '../constants/env';
-import localStorage from '../helpers/storage/localStorage';
+import LS from '../helpers/storage/localStorage';
 import BaseError from '../helpers/errors/baseError';
 
 const getPost = async (params) => {
-    if (localStorage.has('post')) {
-        return localStorage.get('post')
+    if (LS.has('post')) {
+        return LS.get('post')
     }
 
     try {
         const { postId } = params;
 
-        const bearerToken = localStorage.has('token')
-            ? `Bearer ${localStorage.get('token')}`
+        const bearerToken = LS.has('token')
+            ? `Bearer ${LS.get('token')}`
             : '';
 
         const res = await fetch(`${URL}/posts/${postId}`, {
@@ -25,7 +25,8 @@ const getPost = async (params) => {
             throw new BaseError('Blog Post Loader', data.code, data.message);
         }
 
-        localStorage.add('post', JSON.stringify(data));
+        LS.add('post', data)
+        
 
         return data;
     } catch (error) {
