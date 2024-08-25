@@ -15,7 +15,7 @@ function App() {
     const userMemo = useMemo(() => ({ user, setUser }), [user, setUser]);
 
     useEffect(() => {
-        document.body.style.backgroundColor = theme === 'light' ? 'white' : 'black'
+        document.body.style.backgroundColor = theme === 'light' ? '#F5F5F5' : 'black'
 
     }, [theme]);
     
