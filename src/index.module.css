@@ -7,11 +7,13 @@
     display: grid;
     min-height: 100dvh;
     max-width: 100dvw;
+    grid-template-rows: 0.1fr 2fr 0.1fr;
+    box-shadow: 0 0 0 100vmax;
 }
 
 .main {
     display: grid;
-    grid: 0.1fr 0.1fr /auto;
+    /* grid: 1fr 1fr /auto; */
 }
   
 .dark {
