@@ -77,7 +77,6 @@ export default function SignUp() {
                     <Fieldset fieldName="fullname__field">
                         <Label name="First name:">
                             <Input
-                                size={`${style['input--medium']}`}
                                 customStyle={`${style.block}`}
                                 type="text"
                                 name="firstName"
@@ -88,7 +87,6 @@ export default function SignUp() {
 
                         <Label name="Last name:">
                             <Input
-                                size={`${style['input--medium']}`}
                                 customStyle={`${style.block}`}
                                 type="text"
                                 name="lastName"
@@ -101,7 +99,6 @@ export default function SignUp() {
                     <Fieldset fieldName="email_username__field">
                         <Label name="Email:">
                             <Input
-                                size={`${style['input--medium']}`}
                                 customStyle={`${style.block}`}
                                 type="email"
                                 name="email"
@@ -112,7 +109,6 @@ export default function SignUp() {
 
                         <Label name="Username:">
                             <Input
-                                size={`${style['input--medium']}`}
                                 customStyle={`${style.block}`}
                                 type="text"
                                 name="username"
@@ -125,7 +121,6 @@ export default function SignUp() {
                     <Fieldset fieldName="password__field">
                         <Label name="Password:">
                             <Input
-                                size={`${style['input--medium']}`}
                                 customStyle={`${style.block}`}
                                 type="password"
                                 name="password"
@@ -136,7 +131,6 @@ export default function SignUp() {
 
                         <Label name="Confirm password:">
                             <Input
-                                size={`${style['input--medium']}`}
                                 customStyle={`${style.block}`}
                                 type="password"
                                 name="confirm_password"

@@ -46,7 +46,7 @@ export default function Login() {
 
     return (
         <section>
-            <div className={`${style['margin--top']}`}>
+            <div>
                 <Form action="/login" method="POST" onSubmit={handleSubmit}>
                     <div>
                         <h1>Login</h1>
@@ -55,7 +55,6 @@ export default function Login() {
                     <Fieldset fieldName={formConstants.EMAIL}>
                         <Label theme={theme} name="Email:">
                             <Input
-                                size={`${style['input--medium']}`}
                                 customStyle={`${style.block}`}
                                 theme={theme}
                                 type={formConstants.EMAIL}
@@ -75,7 +74,6 @@ export default function Login() {
                     <Fieldset fieldName="password__field">
                         <Label theme={theme} name="Password:">
                             <Input
-                                size={`${style['input--medium']}`}
                                 customStyle={`${style.block}`}
                                 theme={theme}
                                 type={formConstants.PWD}
