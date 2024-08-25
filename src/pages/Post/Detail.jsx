@@ -134,7 +134,7 @@ export default function PostDetail() {
                                 }
 
                                 return (
-                                    <p>
+                                    <p className={`${style['text--center']}`}>
                                         <Link url="/login" theme={theme}>
                                             Login
                                         </Link>{' '}
