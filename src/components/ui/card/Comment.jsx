@@ -44,7 +44,7 @@ export default function Comment({ id, commentsById, setCommentsById }) {
                     <ul>
                         <details
                             className={`${currBoxShadow(style['comment--light'], style['comment--dark'])}`}
-                            open
+                            open={!comment?.isDeleted}
                         >
                             <summary>
                                 {(() => {
