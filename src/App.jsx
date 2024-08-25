@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Outlet, useLoaderData } from 'react-router-dom';
 import ThemeContext from './context/themeContext';
 import UserContextContext from './context/userContext';
@@ -13,6 +13,11 @@ function App() {
     const [theme, setTheme] = useState(localStorage.get('theme') || 'dark');
     const themeMemo = useMemo(() => ({ theme, setTheme }), [theme, setTheme]);
     const userMemo = useMemo(() => ({ user, setUser }), [user, setUser]);
+
+    useEffect(() => {
+        document.body.style.backgroundColor = theme === 'light' ? 'white' : 'black'
+
+    }, [theme])
 
     return (
         <div

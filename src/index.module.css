@@ -10,8 +10,7 @@
 }
 
 .main {
-    display: grid;
-    grid: 0.1fr 0.1fr /auto;
+    margin-bottom: 2rem;
 }
   
 .dark {

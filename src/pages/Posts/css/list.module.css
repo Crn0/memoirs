@@ -11,7 +11,8 @@
     display: flex;
     flex-direction: column;
     width: 50%;
-    gap: 1rem
+    gap: 1rem;
+    margin-bottom: 3rem;
 }
 
 .center {

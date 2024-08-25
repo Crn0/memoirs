@@ -48,6 +48,10 @@
     padding: 2rem;
 }
 
+.comment {
+    margin-bottom: 2rem;
+}
+
 
 .post__cover {
     display: flex;
@@ -78,13 +82,13 @@
 
 .post--dark, .comment--dark {
     color: var(--post-dark-color);
-    /* background-color: var(--post-dark-bg); */
+    background-color: var(--post-dark-bg);
     box-shadow: 0px 1px 1px var(--post-dark-box);
 }
 
 .post--light, .comment--light {
     color: var(--post-light-color);
-    /* background-color: var(--post-light-bg); */
+    background-color: var(--post-light-bg);
     box-shadow: 0px 1px 1px var(--post-light-box);
 }
 
