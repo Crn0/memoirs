@@ -8,6 +8,7 @@
     min-height: 100dvh;
     max-width: 100dvw;
     /* grid-template-rows: 0.1fr 1fr 0.1fr; */
+    position: fixed;
 }
   
 .dark {
