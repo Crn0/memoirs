@@ -47,6 +47,7 @@
     width: 100%;
     max-width: 50%;
     padding: 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
 }
 
 .comment {
