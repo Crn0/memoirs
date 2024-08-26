@@ -46,7 +46,7 @@ export default function Login() {
 
     return (
         <section>
-            <div>
+            <div className={`${style.form__wrapper}`}>
                 <Form action="/login" method="POST" onSubmit={handleSubmit}>
                     <div>
                         <h1>Login</h1>
@@ -133,7 +133,38 @@ export default function Login() {
                         </Button>
                     </Fieldset>
                 </Form>
+
+                <Form action="/login" method="POST" onSubmit={handleSubmit}>
+
+                            <Input
+                                type='hidden'
+                                name={formConstants.EMAIL}
+                                value='john@gmail.com'
+                            />
+
+                            <Input
+                                customStyle={`${style.block}`}
+                                theme={theme}
+                                type='hidden'
+                                name={formConstants.PWD}
+                                value='crnocrno1'
+                            />
+
+
+                    <Fieldset fieldName="button__field">
+                        <Button
+                            type="submit"
+                            size="lg"
+                            isLoading={status === 'submitting'}
+                            customStyle={style.button}
+                        >
+                            Guest
+                        </Button>
+                    </Fieldset>
+                </Form>
             </div>
+
+           
         </section>
     );
 }

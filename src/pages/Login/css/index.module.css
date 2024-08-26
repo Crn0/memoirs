@@ -6,6 +6,11 @@
     margin-top: 15%;
 }
 
+.form__wrapper {
+    display: grid;
+    gap: 1rem;
+}
+
 .input--medium {
     font-size: 2rem;
 }
