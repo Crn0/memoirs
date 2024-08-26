@@ -70,7 +70,7 @@ export default function PostDetail() {
                 <div
                     className={`${style['mw-100']} ${style.post} ${currTheme(style['post--light'], style['post--dark'])}`}
                 >
-                    <div className="post__header">
+                    <div className={`${style.post__header}`}>
                         <div className="meta__container">
                             <div className="post__meta">
                                 <p className={`${style['font--bold__700']}`}>{`${author?.firstName} ${author?.lastName}`}</p>
@@ -109,7 +109,7 @@ export default function PostDetail() {
                 <div
                     className={`${style.comment} ${style['mw-100']} ${currTheme(style['comment--light'], style['comment--dark'])}`}
                 >
-                    <div className="comments__header">
+                    <div className={`${style.comments__header}`}>
                         <div className={`${style.comment__count}`}>
                             <p> {`${commentCount} comments`} </p>
                         </div>
@@ -149,7 +149,7 @@ export default function PostDetail() {
                         </div>
                     </div>
 
-                    <div className="comments__list">
+                    <div className={`${style.comments__list}`}>
                         {(() => {
                             if (commentsId?.length) {
                                 return commentsId?.map((id) => (
