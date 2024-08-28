@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
-import { useContext, useEffect, useMemo, useState } from 'react';
-import { useActionData } from 'react-router-dom';
+import { useContext, useState } from 'react';
 import { DateTime } from 'luxon';
 import ThemeContext from '../../../context/themeContext';
 import UserContext from '../../../context/userContext';
@@ -12,23 +11,12 @@ import Button from '../button/Button';
 import currentTheme from '../../../helpers/theme/currentTheme';
 import style from './css/comment.module.css';
 
-export default function Comment({ id, commentsById, setCommentsById }) {
-    const data = useActionData()
+export default function Comment({ id, commentsById}) {
     const { theme } = useContext(ThemeContext);
     const { user } = useContext(UserContext);
     const [status, setStatus] = useState('idle');
     const [reply, setReply] = useState(false);
-    const deleteId = useMemo(() => data?.commentId, [data?.commentId]);
-
-    useEffect(() => {
-        if (deleteId) {
-            setCommentsById(prev => ({...prev, [deleteId]: {
-                ...prev[deleteId],
-                isDeleted: true,
-            }}))
-        }
-    }, [deleteId, setCommentsById])
-
+    
     const comment = commentsById[id];
     const date = DateTime.fromISO(comment?.created_at).toFormat('LLL dd');
     const isAuth = !!user;
@@ -79,7 +67,6 @@ export default function Comment({ id, commentsById, setCommentsById }) {
                                             id={r}
                                             parentId={id}
                                             commentsById={commentsById}
-                                            setCommentsById={setCommentsById}
                                         />
                                     ))}
                             </li>
@@ -96,7 +83,6 @@ export default function Comment({ id, commentsById, setCommentsById }) {
                                                 btnSize="xxs"
                                                 btnStyle={`${style.button} ${style['button--reply']}`}
                                                 setReply={setReply}
-                                                setCommentsById={setCommentsById}
                                              />
                                         );
 
@@ -203,5 +189,4 @@ Comment.propTypes = {
             _id: PropTypes.string.isRequired,
         })
     ).isRequired,
-    setCommentsById: PropTypes.func.isRequired,
 };

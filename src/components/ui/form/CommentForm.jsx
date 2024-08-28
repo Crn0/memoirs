@@ -11,11 +11,10 @@ import fieldNameIncludes from '../../../helpers/form/fieldnameIncludes';
 import ErrorMessage from '../../errors/errorMessage';
 import FieldErrorMessage from './FieldErrorMessage';
 
-export default function CommentForm({ cols, rows, btnSize, setCommentsById, children }) {
+export default function CommentForm({ cols, rows, btnSize, children }) {
     const [status, setStatus] = useState('typing');
     const [value, setValue] = useState('');
     const data = useActionData();
-    const comment = useMemo(() => data?.comment, [data?.comment]);
     
     const error = data?.error;
 
@@ -29,10 +28,8 @@ export default function CommentForm({ cols, rows, btnSize, setCommentsById, chil
             setValue('');
         };
 
-        if (comment) {
-            setCommentsById(prev => ({...prev, [comment._id]: comment}));
-        }
-    }, [status, comment, setCommentsById]);
+        
+    }, [status]);
 
     return (
         <Form action="" method="POST" onSubmit={handleSubmit}>
@@ -100,5 +97,4 @@ CommentForm.propTypes = {
         PropTypes.arrayOf(PropTypes.element),
         PropTypes.element,
     ]),
-    setCommentsById: PropTypes.func.isRequired,
 };

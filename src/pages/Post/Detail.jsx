@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useMemo } from 'react';
 import {  useAsyncValue } from 'react-router-dom';
 import { DateTime } from 'luxon';
 import ThemeContext from '../../context/themeContext';
@@ -10,25 +10,27 @@ import Comment from '../../components/ui/card/Comment';
 import Link from '../../components/ui/link/Link';
 import style from './css/postDetail.module.css';
 import currentTheme from '../../helpers/theme/currentTheme';
-import localStorage from '../../helpers/storage/localStorage';
 
 export default function PostDetail() {
     const asyncData = useAsyncValue();
     const { theme } = useContext(ThemeContext);
     const { user } = useContext(UserContext);
-    const [commentsById, setCommentsById] = useState(() => asyncData.post.comments.reduce((_, obj) => {
+    const commentsById = useMemo(() => {
+        asyncData.post.comments.reduce((_, obj) => {
             const map = { ..._ };
             map[obj._id] = obj;
             return map;
-        }, {}));
-
-    const commentsId = Object.entries(commentsById).reduce((_, obj) => {
-        if (obj[1].isReply) {
-            return _;
-        }
-
-        return [..._, obj[1]._id];
-    }, []);
+        }, {})
+    }, [asyncData.post.comments]);
+    const commentsId = useMemo(() => {
+        Object.entries(commentsById).reduce((_, obj) => {
+            if (obj[1].isReply) {
+                return _;
+            }
+    
+            return [..._, obj[1]._id];
+        }, [])
+    }, [commentsById]);
 
     const isAuth = !!user;
 
@@ -42,16 +44,7 @@ export default function PostDetail() {
 
     const date = DateTime.fromISO(post?.createdAt).toFormat('LLL dd');
     const cleanHTML = purifyHTML(post?.body);
-
     const currTheme = currentTheme(theme);
-
-    useEffect(() => {
-        
-        window.addEventListener('beforeunload',localStorage.remove('post'));
-        return () => {
-            window.removeEventListener('beforeunload', localStorage.remove('post'));
-        }
-    }, []);
 
     return (
         <>
@@ -126,7 +119,6 @@ export default function PostDetail() {
                                             cols={50}
                                             rows={5}
                                             btnSize="lg"
-                                            setCommentsById={setCommentsById}
                                         >
                                             <Input
                                                 type="hidden"
@@ -162,7 +154,6 @@ export default function PostDetail() {
                                         id={id}
                                         commentsId={null}
                                         commentsById={commentsById}
-                                        setCommentsById={setCommentsById}
                                     />
                                 ));
                             }
