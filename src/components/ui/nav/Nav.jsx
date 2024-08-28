@@ -77,18 +77,6 @@ export default function NavBar() {
                                 </Link>
                             </div>
                         ))}
-                        {/* <div className={`${style.center} ${currentTheme(style['link-light'], 'link-dark')}`}>
-                        <Link url="sign-up" className={theme}>
-                            {' '}
-                            Sign-up{' '}
-                        </Link>
-                        </div>
-                        <div className={`${style.center} `}>
-                        <Link url="login" className={theme} customStyle={`${currentTheme(style['link--light'], style[style['link--dark']])}`}>
-                            {' '}
-                            Login{' '}
-                        </Link>
-                        </div> */}
                     </>
                 );
             })()}
