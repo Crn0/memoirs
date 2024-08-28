@@ -1,4 +1,4 @@
-import { useContext, useMemo } from 'react';
+import { useContext } from 'react';
 import {  useAsyncValue } from 'react-router-dom';
 import { DateTime } from 'luxon';
 import ThemeContext from '../../context/themeContext';
@@ -15,22 +15,18 @@ export default function PostDetail() {
     const asyncData = useAsyncValue();
     const { theme } = useContext(ThemeContext);
     const { user } = useContext(UserContext);
-    const commentsById = useMemo(() => {
-        asyncData.post.comments.reduce((_, obj) => {
-            const map = { ..._ };
-            map[obj._id] = obj;
-            return map;
-        }, {})
-    }, [asyncData.post.comments]);
-    const commentsId = useMemo(() => {
-        Object.entries(commentsById).reduce((_, obj) => {
-            if (obj[1].isReply) {
-                return _;
-            }
-    
-            return [..._, obj[1]._id];
-        }, [])
-    }, [commentsById]);
+    const commentsById = asyncData.post.comments.reduce((_, obj) => {
+        const map = { ..._ };
+        map[obj._id] = obj;
+        return map;
+    }, {})
+    const commentsId = Object.entries(commentsById).reduce((_, obj) => {
+        if (obj[1].isReply) {
+            return _;
+        }
+
+        return [..._, obj[1]._id];
+    }, []);
 
     const isAuth = !!user;
 
