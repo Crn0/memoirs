@@ -45,9 +45,13 @@ export default function PostDetail() {
 
     const currTheme = currentTheme(theme);
 
-    useEffect(() => () => {
-            localStorage.remove('post')
-        }, []);
+    useEffect(() => {
+        
+        window.addEventListener('beforeunload',localStorage.remove('post'));
+        return () => {
+            window.removeEventListener('beforeunload', localStorage.remove('post'));
+        }
+    }, []);
 
     return (
         <>
