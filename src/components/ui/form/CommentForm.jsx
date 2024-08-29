@@ -15,7 +15,7 @@ export default function CommentForm({ cols, rows, btnSize, children }) {
     const [status, setStatus] = useState('typing');
     const [value, setValue] = useState('');
     const data = useActionData();
-    
+
     const error = data?.error;
 
     const handleSubmit = () => {
@@ -26,9 +26,7 @@ export default function CommentForm({ cols, rows, btnSize, children }) {
         if (status === 'submitting') {
             setStatus('typing');
             setValue('');
-        };
-
-        
+        }
     }, [status]);
 
     return (

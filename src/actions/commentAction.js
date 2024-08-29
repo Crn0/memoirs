@@ -52,11 +52,14 @@ const reply = async (formData, formId, { postId }) => {
         const submission = { body: formData.get('body') };
         const commentId = formData.get('comment-id');
 
-        const res = await fetch(`${URL}/posts/${postId}/comments/${commentId}`, {
-            method: 'POST',
-            headers: myHeaders,
-            body: JSON.stringify(submission),
-        });
+        const res = await fetch(
+            `${URL}/posts/${postId}/comments/${commentId}`,
+            {
+                method: 'POST',
+                headers: myHeaders,
+                body: JSON.stringify(submission),
+            }
+        );
 
         const data = await res.json();
 

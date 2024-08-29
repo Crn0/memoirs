@@ -42,7 +42,10 @@ export default function Header({ children }) {
                             setTheme((mode) =>
                                 mode === 'light' ? 'dark' : 'light'
                             );
-                            localStorage.add('theme', theme === 'light' ? 'dark' : 'light');
+                            localStorage.add(
+                                'theme',
+                                theme === 'light' ? 'dark' : 'light'
+                            );
                         }}
                         customStyle={`${style.header__btn}`}
                         testId="theme-switcher"

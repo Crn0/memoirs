@@ -15,10 +15,10 @@ function App() {
     const userMemo = useMemo(() => ({ user, setUser }), [user, setUser]);
 
     useEffect(() => {
-        document.body.style.backgroundColor = theme === 'light' ? '#F5F5F5' : 'black'
-
+        document.body.style.backgroundColor =
+            theme === 'light' ? '#F5F5F5' : 'black';
     }, [theme]);
-    
+
     return (
         <div
             className={`${style.app} ${theme === 'dark' ? style.dark : style.light}`}

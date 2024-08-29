@@ -11,12 +11,12 @@ import Button from '../button/Button';
 import currentTheme from '../../../helpers/theme/currentTheme';
 import style from './css/comment.module.css';
 
-export default function Comment({ id, commentsById}) {
+export default function Comment({ id, commentsById }) {
     const { theme } = useContext(ThemeContext);
     const { user } = useContext(UserContext);
     const [status, setStatus] = useState('idle');
     const [reply, setReply] = useState(false);
-    
+
     const comment = commentsById[id];
     const date = DateTime.fromISO(comment?.created_at).toFormat('LLL dd');
     const isAuth = !!user;
@@ -73,7 +73,6 @@ export default function Comment({ id, commentsById}) {
 
                             {isAuth &&
                                 (() => {
-                                    
                                     if (reply)
                                         return (
                                             <ReplyForm
@@ -83,63 +82,66 @@ export default function Comment({ id, commentsById}) {
                                                 btnSize="xxs"
                                                 btnStyle={`${style.button} ${style['button--reply']}`}
                                                 setReply={setReply}
-                                             />
+                                            />
                                         );
 
                                     return (
                                         <div
                                             className={`${style.comment__btn}`}
                                         >
-                                            {
-                                                (() => {
-                                                    if ( author?._id !== user?._id || comment?.isDeleted) return null
+                                            {(() => {
+                                                if (
+                                                    author?._id !== user?._id ||
+                                                    comment?.isDeleted
+                                                )
+                                                    return null;
 
-                                                    return (
-                                                        <Form
-                                                customStyle={`${style.form}`}
-                                                action=""
-                                                method="POST"
-                                                onSubmit={() => {
-                                                    setStatus('submitting');
-                                                }}
-                                            >
-                                                <Fieldset fieldName="delete__field">
-                                                    <Input
-                                                        type="hidden"
-                                                        name="form-id"
-                                                        value="DELETE_COMMENT"
-                                                    />
-
-                                                    <Input
-                                                        type="hidden"
-                                                        name="comment-id"
-                                                        value={`${comment?._id}`}
-                                                    />
-
-                                                    <Button
-                                                        type="submit"
-                                                        customStyle={`${style.button}, ${style['button--delete']}`}
-                                                        size="xxs"
-                                                        disabled={
-                                                            status ===
-                                                            'submitting'
-                                                        }
+                                                return (
+                                                    <Form
+                                                        customStyle={`${style.form}`}
+                                                        action=""
+                                                        method="POST"
+                                                        onSubmit={() => {
+                                                            setStatus(
+                                                                'submitting'
+                                                            );
+                                                        }}
                                                     >
-                                                        Delete
-                                                    </Button>
-                                                </Fieldset>
-                                            </Form>
-                                                    );
-                                                })()
-                                            }
-                                            
+                                                        <Fieldset fieldName="delete__field">
+                                                            <Input
+                                                                type="hidden"
+                                                                name="form-id"
+                                                                value="DELETE_COMMENT"
+                                                            />
 
-                                            {
-                                                (() => {
-                                                    if (comment?.isDeleted) return null;
+                                                            <Input
+                                                                type="hidden"
+                                                                name="comment-id"
+                                                                value={`${comment?._id}`}
+                                                            />
 
-                                                    return (
-                                                        <Button
+                                                            <Button
+                                                                type="submit"
+                                                                customStyle={`${style.button}, ${style['button--delete']}`}
+                                                                size="xxs"
+                                                                disabled={
+                                                                    status ===
+                                                                    'submitting'
+                                                                }
+                                                            >
+                                                                Delete
+                                                            </Button>
+                                                        </Fieldset>
+                                                    </Form>
+                                                );
+                                            })()}
+
+                                            {(() => {
+                                                if (comment?.isDeleted)
+                                                    return null;
+
+                                                return (
+                                                    <Button
                                                         type="button"
                                                         customStyle={`${style.button}, ${style['button--reply']}`}
                                                         size="xxs"
@@ -149,9 +151,8 @@ export default function Comment({ id, commentsById}) {
                                                     >
                                                         Reply
                                                     </Button>
-                                                    );
-                                                })()
-                                            }
+                                                );
+                                            })()}
                                         </div>
                                     );
                                 })()}

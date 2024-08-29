@@ -3,7 +3,7 @@ import style from './css/error.module.css';
 
 export default function PostError() {
     const error = useAsyncError();
-    
+
     return (
         <div className={`${style.error}`}>
             <h1 className="error__code">{error?.httpCode || error?.code}</h1>

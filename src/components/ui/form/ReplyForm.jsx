@@ -18,12 +18,12 @@ export default function ReplyForm({
     btnSize,
     id,
     setReply,
-    btnStyle = ''
+    btnStyle = '',
 }) {
     const data = useActionData();
     const [status, setStatus] = useState('typing');
     const [value, setValue] = useState('');
-    
+
     const error = data?.error;
 
     const handleSubmit = () => {
@@ -32,11 +32,9 @@ export default function ReplyForm({
 
     useEffect(() => {
         if (status === 'submitting') {
-            setStatus('typing')
-            setValue('')
-        };
-
-       
+            setStatus('typing');
+            setValue('');
+        }
     }, [status]);
 
     return (
@@ -49,16 +47,8 @@ export default function ReplyForm({
                     value={value}
                     onChange={(e) => setValue(e.target.value)}
                 />
-                 <Input
-                                                    type="hidden"
-                                                    name="comment-id"
-                                                    value={`${id}`}
-                                                />
-                                                <Input
-                                                    type="hidden"
-                                                    name="form-id"
-                                                    value="REPLY_COMMENT"
-                                                />
+                <Input type="hidden" name="comment-id" value={`${id}`} />
+                <Input type="hidden" name="form-id" value="REPLY_COMMENT" />
             </Fieldset>
 
             {(() => {
@@ -103,14 +93,13 @@ export default function ReplyForm({
                 </Button>
 
                 <Button
-                    customStyle={`${btnStyle}`} 
+                    customStyle={`${btnStyle}`}
                     type="button"
                     size={btnSize}
                     onClick={() => setReply(false)}
                 >
                     Cancel
                 </Button>
-                                           
             </Fieldset>
         </Form>
     );

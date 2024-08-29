@@ -7,9 +7,7 @@ const getPost = async (params) => {
     try {
         const { postId } = params;
 
-        const bearerToken = LS.has('token')
-            ? `Bearer ${LS.get('token')}`
-            : '';
+        const bearerToken = LS.has('token') ? `Bearer ${LS.get('token')}` : '';
 
         const res = await fetch(`${URL}/posts/${postId}`, {
             headers: { Authorization: `${bearerToken}` },

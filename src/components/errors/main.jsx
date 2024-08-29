@@ -10,7 +10,10 @@ export default function MainError() {
     const { theme } = useContext(ThemeContext);
 
     return (
-        <div className={`${style.error}`} style={{backgroundImage: `url(${rickRoll})`}}>
+        <div
+            className={`${style.error}`}
+            style={{ backgroundImage: `url(${rickRoll})` }}
+        >
             <h2>Oops</h2>
             <p>Sorry, you just got rick rolled :P</p>
             <Link url="/">Home</Link>

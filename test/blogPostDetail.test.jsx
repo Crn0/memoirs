@@ -43,7 +43,10 @@ const add = async (formData) => {
   mockData.POSTS.posts[0].comments.push(mockComment);
 
   return {
-    comment: mockData.POSTS.posts[0].comments[mockData.POSTS.posts[0].comments.length-1]
+    comment:
+      mockData.POSTS.posts[0].comments[
+        mockData.POSTS.posts[0].comments.length - 1
+      ],
   };
 };
 
@@ -54,7 +57,6 @@ const destroy = (formData) => {
     (comment) => comment._id !== commentId,
   );
 
-
   return { commentId };
 };
 
@@ -62,7 +64,7 @@ async function action({ request }) {
   try {
     const formData = await request.formData();
     const formId = formData.get("form-id");
-    
+
     switch (formId) {
       case "ADD_COMMENT":
         return add(formData, request);
@@ -136,7 +138,6 @@ describe("Blog post detail page", () => {
   it("renders the blog post on a successful fetch(e.g. status code 200)", async () => {
     mockLoader.mockImplementation(() => {
       const post = new Promise((res, _) => {
-
         res({
           post: mockData.POSTS.posts[0],
         });
@@ -187,7 +188,6 @@ describe("Blog post detail page", () => {
   it("comment form will not render if user is not authenticated", async () => {
     mockLoader.mockImplementation(() => {
       const post = new Promise((res, _) => {
-
         res({
           post: mockData.POSTS.posts[0],
         });
@@ -215,9 +215,8 @@ describe("Blog post detail page", () => {
 
     mockLoader.mockImplementation(() => {
       const post = new Promise((res, _) => {
-
         res({
-          post: {...mockData.POSTS.posts[0]},
+          post: { ...mockData.POSTS.posts[0] },
         });
       });
 
@@ -249,7 +248,6 @@ describe("Blog post detail page", () => {
 
     mockLoader.mockImplementation(() => {
       const post = new Promise((res, _) => {
-
         res({
           post: mockData.POSTS.posts[0],
         });

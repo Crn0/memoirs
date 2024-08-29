@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import {  useAsyncValue } from 'react-router-dom';
+import { useAsyncValue } from 'react-router-dom';
 import { DateTime } from 'luxon';
 import ThemeContext from '../../context/themeContext';
 import UserContext from '../../context/userContext';
@@ -19,7 +19,7 @@ export default function PostDetail() {
         const map = { ..._ };
         map[obj._id] = obj;
         return map;
-    }, {})
+    }, {});
     const commentsId = Object.entries(commentsById).reduce((_, obj) => {
         if (obj[1].isReply) {
             return _;
@@ -66,9 +66,13 @@ export default function PostDetail() {
                     <div className={`${style.post__header}`}>
                         <div className="meta__container">
                             <div className="post__meta">
-                                <p className={`${style['font--bold__700']}`}>{`${author?.firstName} ${author?.lastName}`}</p>
+                                <p
+                                    className={`${style['font--bold__700']}`}
+                                >{`${author?.firstName} ${author?.lastName}`}</p>
 
-                                <p className={`${style['opacity--08']}`}>{`Posted on ${date}`}</p>
+                                <p
+                                    className={`${style['opacity--08']}`}
+                                >{`Posted on ${date}`}</p>
                             </div>
 
                             <div className="post__title">

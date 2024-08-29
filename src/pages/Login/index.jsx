@@ -135,21 +135,19 @@ export default function Login() {
                 </Form>
 
                 <Form action="/login" method="POST" onSubmit={handleSubmit}>
+                    <Input
+                        type="hidden"
+                        name={formConstants.EMAIL}
+                        value="john@gmail.com"
+                    />
 
-                            <Input
-                                type='hidden'
-                                name={formConstants.EMAIL}
-                                value='john@gmail.com'
-                            />
-
-                            <Input
-                                customStyle={`${style.block}`}
-                                theme={theme}
-                                type='hidden'
-                                name={formConstants.PWD}
-                                value='crnocrno1'
-                            />
-
+                    <Input
+                        customStyle={`${style.block}`}
+                        theme={theme}
+                        type="hidden"
+                        name={formConstants.PWD}
+                        value="crnocrno1"
+                    />
 
                     <Fieldset fieldName="button__field">
                         <Button
@@ -163,8 +161,6 @@ export default function Login() {
                     </Fieldset>
                 </Form>
             </div>
-
-           
         </section>
     );
 }
