@@ -72,7 +72,7 @@ describe("Login form page", () => {
 
     render(<RouterProvider router={router} />);
 
-    expect(screen.getByRole("form")).toBeInTheDocument();
+    expect(screen.getAllByRole("form")).toHaveLength(2);
   });
 
   it("button is disabled the email and password are empty", async () => {
